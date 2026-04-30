@@ -1,0 +1,90 @@
+---
+alwaysApply: true
+---
+---
+description: Agent Inspector design system — non-negotiable rules
+alwaysApply: true
+---
+
+# DESIGN SYSTEM RULES — DO NOT VIOLATE
+
+## Typography
+- Body / UI: Geist Sans (loaded via next/font/google → Geist)
+- Code / token values: Geist Mono (next/font/google → Geist_Mono)
+- NEVER introduce a serif font. NEVER use Source Serif, Times, Georgia, or any serif fallback. If a serif appears in the rendered output, the font import is broken — fix it.
+- NEVER use a monospace font for ALL CAPS labels, kickers, eyebrows, footer chrome, status pills, or nav. Mono is for code-equivalent content only.
+- Type scale (use these exact sizes):
+  - display 64px / 1.05 / -0.025em / 600
+  - h1 48px / 1.1 / -0.02em / 600
+  - h2 28px / 1.2 / -0.01em / 600
+  - h3 20px / 1.3 / -0.005em / 600
+  - body-lg 18px / 1.55 / 400
+  - body 16px / 1.6 / 400
+  - small 14px / 1.5 / 400
+  - caption 12px / 1.4 / 0.04em / 500 (NOT mono, use letter-spacing for the kicker feel)
+  - code 13px / 1.5 / 400 (Geist Mono — only for token values, code blocks, agent demo content)
+
+## Color tokens (Radix-derived gray scale + Geist blue)
+Use these exactly. Never invent new shades.
+
+LIGHT (default):
+  --bg:           #FAFAFA
+  --bg-elevated:  #FFFFFF
+  --bg-subtle:    #F4F4F5
+  --bg-accent:    #EFF4FF
+  --border:       #EAEAEA
+  --border-strong:#D4D4D4
+  --text:         #171717
+  --text-muted:   #525252
+  --text-subtle:  #737373
+  --accent:       #0070F3
+  --accent-hover: #0761D1
+  --success:      #15803D
+  --caution:      #B45309
+
+DARK:
+  --bg:           #0A0A0A
+  --bg-elevated:  #111111
+  --bg-subtle:    #1A1A1A
+  --bg-accent:    #0F1F3D
+  --border:       #2A2A2A
+  --border-strong:#3F3F3F
+  --text:         #EDEDED
+  --text-muted:   #A1A1A1
+  --text-subtle:  #707070
+  --accent:       #3291FF
+  --accent-hover: #5DA9FF
+  --success:      #4ADE80
+  --caution:      #FBBF24
+
+## Elevation (light mode shadows — layered low alpha)
+  --shadow-sm: 0 0 0 1px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px -4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04), 0 12px 24px -8px rgba(0,0,0,0.08);
+
+In dark mode, set all shadow values to `none` and rely on --border instead.
+
+## Accent usage (the part previous passes got wrong)
+Use --accent confidently. It MUST be visibly present above the fold:
+  - "Live" pill: bg --bg-accent, text --accent — visibly blue, not subtle
+  - Pattern Status sidebar active row: 6px filled circle in --accent
+  - Demo toggle active state: bg --accent, white knob
+  - Focus rings everywhere: 2px solid --accent, offset 2px
+
+NEVER use --accent for body links (those use --text underline) or full-section backgrounds.
+
+## Banned characters in copy
+  - Em-dashes (—) → replace with period + new sentence, OR a colon
+  - Right arrows (→) in body copy → remove
+  - Middle dots (·) → footer meta line only
+
+## Banned hedge words (search and remove)
+thoughtfully, carefully, seamlessly, robust, leverage, intuitive, delightful, powerful, elegant, modern, beautifully
+
+## Density rules
+- Max content width: 1120px
+- Section vertical padding: 120px desktop, 80px mobile
+- Card padding: 28px
+- Card grid gap: 20px
+- Cards: bg-elevated, radius 12px, box-shadow var(--shadow-sm), no border (the shadow ring IS the border)
+- Live card hover: shadow-md + translate-y -2px, transition 200ms ease-out
