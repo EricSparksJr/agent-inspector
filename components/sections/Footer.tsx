@@ -21,7 +21,7 @@ export default function Footer() {
             className="transition-colors duration-[180ms] hover:opacity-70"
             style={{ color: "var(--text-muted)" }}
           >
-            About
+            Why this exists
           </a>
         </div>
 
