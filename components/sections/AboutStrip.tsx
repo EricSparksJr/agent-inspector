@@ -10,7 +10,7 @@ export default function AboutStrip() {
               className="text-[12px] font-medium uppercase tracking-[0.08em]"
               style={{ color: "var(--text-subtle)" }}
             >
-              About
+              Why this exists
             </p>
           </div>
 
