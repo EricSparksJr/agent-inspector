@@ -21,17 +21,7 @@ export default function Footer() {
             className="transition-colors duration-[180ms] hover:opacity-70"
             style={{ color: "var(--text-muted)" }}
           >
-            About
-          </a>
-          <span style={{ color: "var(--border-strong)" }}>·</span>
-          <a
-            href="https://ericsparksjr.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-[180ms] hover:opacity-70"
-            style={{ color: "var(--text-muted)" }}
-          >
-            Portfolio
+            Why this exists
           </a>
         </div>
 

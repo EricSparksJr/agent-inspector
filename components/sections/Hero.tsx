@@ -73,7 +73,7 @@ export default function Hero() {
                   "h-10 px-5 text-sm font-medium"
                 )}
               >
-                Read the thesis
+                Why this exists
               </a>
             </div>
           </motion.div>

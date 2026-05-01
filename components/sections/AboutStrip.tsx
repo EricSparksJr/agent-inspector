@@ -10,7 +10,7 @@ export default function AboutStrip() {
               className="text-[12px] font-medium uppercase tracking-[0.08em]"
               style={{ color: "var(--text-subtle)" }}
             >
-              About the Author
+              Why this exists
             </p>
           </div>
 
@@ -20,12 +20,27 @@ export default function AboutStrip() {
               className="text-pretty leading-[1.65]"
               style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
             >
-              Eric Sparks designs AI agent systems at Microsoft. Recent work
-              includes Copilot and the Power Platform agent surface. He started
-              this library because pattern references for agent experience design
-              are scattered across blog posts, internal docs, and Twitter
-              threads. Open to senior product design and design lead roles at
-              companies shipping agents.
+              The engineering patterns for AI agents are well-documented. The
+              interaction patterns are not. How trust, control, and recovery
+              should feel from the user's side of the screen is still spread
+              across blog posts, conference talks, and product launches.
+            </p>
+
+            <p
+              className="mt-5 text-pretty leading-[1.65]"
+              style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
+            >
+              Agent Inspector names those patterns, builds them, and argues
+              for them.
+            </p>
+
+            <p
+              className="mt-5 text-pretty leading-[1.65]"
+              style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
+            >
+              Eric Sparks is a product designer at Microsoft. This library is
+              shaped by his work designing AI products inside enterprise
+              software.
             </p>
 
             <div className="mt-6 space-y-1.5">
@@ -41,23 +56,9 @@ export default function AboutStrip() {
                   ericsparksjr@gmail.com
                 </a>
               </p>
-              <p
-                style={{ fontSize: "var(--text-small)", color: "var(--text-muted)" }}
-              >
-                portfolio:{" "}
-                <a
-                  href="https://ericsparksjr.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 transition-colors duration-[180ms] hover:text-text"
-                  style={{ textDecorationColor: "var(--border-strong)" }}
-                >
-                  ericsparksjr.com
-                </a>
-              </p>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </section>
