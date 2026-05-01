@@ -2,71 +2,57 @@
 
 const EDGE_CASES = [
   {
-    label: "Failure 01",
     title: "When confidence is wrong",
-    body: "A stale source returns cached data. The score reads 92% but the answer is incorrect. Source freshness is out of scope here. It belongs to a separate layer.",
+    body: "A stale source returns cached data. The chip reads high confidence but the answer is incorrect. Source freshness is out of scope for this pattern. It belongs to a separate retrieval and indexing layer.",
   },
   {
-    label: "Failure 02",
     title: "When sources within a turn conflict",
-    body: "Source A says March 15. Source B says April 2. The agent returns a majority answer. The minority signal disappears from the per-message metadata.",
+    body: "One source says March 15. Another says April 2. The agent returns a majority answer and the minority signal disappears from the per-message metadata. Surfacing intra-turn disagreement requires a different display layer that this pattern does not own.",
   },
   {
-    label: "Failure 03",
     title: "When the user disagrees with a turn",
-    body: "The user knows a specific turn's answer is wrong but 89% shows in the metadata strip. There is no affordance to flag it at the message level.",
+    body: 'The user knows a specific turn\'s answer is wrong but the metadata strip still reads "high confidence" because the agent was confident in a wrong source. The thumbs-down control captures the disagreement signal but does not propagate to the upstream sources. Source-level correction is out of scope for this pattern. It belongs to a feedback loop layer.',
   },
   {
-    label: "Failure 04",
     title: "When confidence drops mid-task",
-    body: "A multi-step task starts at 91% and falls to 40% across turns. The multi-turn thread shows the degradation, but the agent doesn't surface it proactively.",
+    body: "A multi-step task starts on solid ground and degrades across turns. The thread shows the change tier-by-tier, but the agent does not surface the trend proactively or warn the user that earlier confident steps may have been built on later uncertain ones. Cross-turn confidence summarization is a separate pattern.",
   },
 ]
 
 export default function EdgeCaseCards() {
   return (
-    <div
-      className="flex gap-6 overflow-x-auto pb-4"
-      style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
-    >
-      {EDGE_CASES.map((card) => (
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+      {EDGE_CASES.map((card, i) => (
         <div
           key={card.title}
-          className="shrink-0 w-[300px] rounded-xl p-5 transition-all duration-200"
+          className="rounded-xl p-8 lg:p-10"
           style={{
-            border: "1px solid var(--border)",
-            backgroundColor: "var(--bg-elevated)",
-            scrollSnapAlign: "start",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = "var(--shadow-sm)"
-            e.currentTarget.style.transform = "translateY(-2px)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "none"
-            e.currentTarget.style.transform = ""
+            backgroundColor: "var(--card-bg)",
+            border: "1px solid var(--card-border)",
+            boxShadow: "var(--card-shadow)",
           }}
         >
-          {/* Failure mode label */}
           <p
-            className="mb-4 text-[12px] uppercase tracking-[0.06em]"
+            className="font-[family-name:var(--font-mono)] text-[40px] font-light leading-none tracking-[-0.02em] opacity-60"
             style={{ color: "var(--text-muted)" }}
           >
-            {card.label}
+            {String(i + 1).padStart(2, "0")}
           </p>
-
-          {/* Title */}
           <p
-            className="mb-2 text-[14px] font-semibold leading-snug"
+            className="mt-5 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.12em]"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Failure
+          </p>
+          <h3
+            className="mt-2 text-[17px] font-medium leading-snug"
             style={{ color: "var(--text)" }}
           >
             {card.title}
-          </p>
-
-          {/* Body */}
+          </h3>
           <p
-            className="text-[13px] leading-[1.55] text-pretty"
-            style={{ color: "var(--text-muted)" }}
+            className="mt-3 text-[14px] leading-[1.65] text-pretty"
+            style={{ color: "var(--text)" }}
           >
             {card.body}
           </p>

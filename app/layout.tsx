@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
 import "./globals.css";
 
@@ -15,6 +15,17 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#FAFAFA",
+};
+
 export const metadata: Metadata = {
   title: "Agent Inspector · AX Pattern Library",
   description:
@@ -29,7 +40,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      data-theme="light"
+      className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

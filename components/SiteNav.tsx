@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import ThemeToggle from "@/components/theme-toggle"
-
 
 export default function SiteNav() {
   const [scrolled, setScrolled] = useState(false)
@@ -26,7 +24,7 @@ export default function SiteNav() {
         WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
       }}
     >
-      <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-6 md:px-10">
+      <div className="mx-auto flex h-full max-w-[1200px] items-center px-6 md:px-10">
         <Link
           href="/"
           className="flex items-center gap-2 text-sm font-medium transition-opacity duration-[120ms] hover:opacity-70"
@@ -54,7 +52,6 @@ export default function SiteNav() {
           </svg>
           Agent Inspector
         </Link>
-        <ThemeToggle />
       </div>
     </header>
   )

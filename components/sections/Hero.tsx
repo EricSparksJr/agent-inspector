@@ -15,7 +15,7 @@ export default function Hero() {
 
   return (
     <section className="relative pt-32 pb-0">
-      {/* Subtle radial glow — light mode */}
+      {/* Subtle radial glow: light mode */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[600px] dark:hidden"
@@ -24,7 +24,7 @@ export default function Hero() {
             "radial-gradient(ellipse 1200px 600px at 50% 0%, oklch(98% 0.008 250 / 0.6), transparent 70%)",
         }}
       />
-      {/* Subtle radial glow — dark mode */}
+      {/* Subtle radial glow: dark mode */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[600px] hidden dark:block"
@@ -35,17 +35,17 @@ export default function Hero() {
       />
 
       <div className="mx-auto max-w-[1200px] px-6 md:px-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[540px_1fr] lg:items-start xl:gap-16">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[540px_1fr] xl:gap-16">
 
           {/* ── Left column ── */}
           <motion.div
-            className="max-w-[540px]"
+            className="max-w-[540px] self-start"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <h1
-              className="mb-6 text-balance font-semibold leading-[1.05] tracking-[-0.025em]"
+              className="mt-0 pt-0 mb-6 text-balance font-semibold leading-[0.95] tracking-[-0.025em] [text-box-edge:cap_alphabetic] [text-box-trim:trim-start]"
               style={{ fontSize: "var(--text-display)", color: "var(--text)" }}
             >
               Designing trust into agentic systems.
@@ -78,8 +78,9 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* ── Right column — live demo ── */}
+          {/* Right column: live demo */}
           <motion.div
+            className="min-w-0 self-start"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
@@ -88,6 +89,7 @@ export default function Hero() {
               messages={DEMO_MESSAGES_SINGLE}
               variant="compact"
               showWithWithoutToggle
+              researchRailFooter
             />
           </motion.div>
 

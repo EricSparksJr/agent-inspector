@@ -3,39 +3,48 @@ import CopyButton from "./CopyButton"
 
 // ─── code to display ──────────────────────────────────────────────────────────
 
-const CODE = `interface ConfidenceData {
+const CODE = `type ConfidenceTier = "high" | "medium" | "low"
+
+interface ConfidenceData {
+  tier: ConfidenceTier
   percent: number
-  source: string
-  tier: 'high' | 'medium' | 'low'
+  reasoning: string
 }
 
-const TIER_DOT: Record<ConfidenceData['tier'], string> = {
-  high:   'bg-emerald-600',
-  medium: 'bg-amber-500',
-  low:    'bg-red-500',
+const TIER_DOT: Record<ConfidenceTier, string> = {
+  high: "#1F8B4C",
+  medium: "#C8881C",
+  low: "#C42929",
 }
 
-const TIER_TEXT: Record<ConfidenceData['tier'], string> = {
-  high:   'text-emerald-700',
-  medium: 'text-amber-700',
-  low:    'text-red-700',
+const TIER_LABEL: Record<ConfidenceTier, string> = {
+  high: "High confidence",
+  medium: "Medium confidence",
+  low: "Low confidence",
 }
 
-export function ConfidencePill({
-  confidence,
-}: {
-  confidence: ConfidenceData
-}) {
-  const dot  = TIER_DOT[confidence.tier]
-  const text = TIER_TEXT[confidence.tier]
-
+export function ConfidenceChip({ confidence }: { confidence: ConfidenceData }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-md bg-neutral-100 px-3 py-1.5 font-mono text-xs tabular-nums">
-      <span className={\`size-1.5 shrink-0 rounded-full \${dot}\`} />
-      <span className={text}>{confidence.percent}% Confident</span>
-      <span className="text-neutral-400">·</span>
-      <span className="text-neutral-500">{confidence.source}</span>
-    </span>
+    <Tooltip>
+      <TooltipTrigger>
+        <span className="inline-flex items-center gap-1.5 text-[12px] cursor-help">
+          <span
+            aria-hidden
+            className="size-1.5 rounded-full"
+            style={{ backgroundColor: TIER_DOT[confidence.tier] }}
+          />
+          <span style={{ color: "var(--text-muted)" }}>
+            {TIER_LABEL[confidence.tier]}
+          </span>
+        </span>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="max-w-[280px]">
+        <p className="text-[13px]">{confidence.reasoning}</p>
+        <p className="text-[12px] mt-1" style={{ color: "var(--text-subtle)" }}>
+          Internal score: {confidence.percent}%
+        </p>
+      </TooltipContent>
+    </Tooltip>
   )
 }`
 

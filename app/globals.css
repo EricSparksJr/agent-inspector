@@ -75,8 +75,10 @@
 ═══════════════════════════════════════════════════════════════ */
 
 :root {
+  color-scheme: light;
   /* ── Design tokens (design-system.mdc) ───────────────────────── */
-  --bg:            #FAFAFA;
+  --page-bg:       #FAFAFA;
+  --bg:            var(--page-bg);
   --bg-elevated:   #FFFFFF;
   --bg-subtle:     #F4F4F5;
   --bg-accent:     #EFF4FF;
@@ -95,6 +97,11 @@
   --shadow-md: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px -4px rgba(0,0,0,0.04);
   --shadow-lg: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04), 0 12px 24px -8px rgba(0,0,0,0.08);
 
+  --card-bg: #FFFFFF;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
+  --card-shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+
   /* ── Type scale ──────────────────────────────────────────────── */
   --text-display:  4rem;        /* 64px */
   --text-h1:       3rem;        /* 48px */
@@ -104,10 +111,10 @@
   --text-body:     1rem;        /* 16px */
   --text-small:    0.875rem;    /* 14px */
   --text-caption:  0.75rem;     /* 12px */
-  --text-code:     0.8125rem;   /* 13px — Geist Mono only */
+  --text-code:     0.8125rem;   /* 13px. Geist Mono only */
 
   /* ── Nav helper ──────────────────────────────────────────────── */
-  --nav-bg-scrolled:     rgba(250, 250, 250, 0.92);
+  --nav-bg-scrolled:     color-mix(in srgb, var(--page-bg) 92%, transparent);
   --nav-border-scrolled: var(--border);
 
   /* ── Shadcn semantic vars ────────────────────────────────────── */
@@ -149,6 +156,7 @@
 
 [data-theme="dark"] {
   /* ── Design tokens (design-system.mdc) ───────────────────────── */
+  --surface:       #111111;
   --bg:            #0A0A0A;
   --bg-elevated:   #111111;
   --bg-subtle:     #1A1A1A;
@@ -167,6 +175,11 @@
   --shadow-sm: none;
   --shadow-md: none;
   --shadow-lg: none;
+
+  --card-bg: var(--bg-elevated);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: none;
+  --card-shadow-elevated: none;
 
   --nav-bg-scrolled:     rgba(10, 10, 10, 0.92);
   --nav-border-scrolled: var(--border);
@@ -232,7 +245,7 @@
     color: var(--text);
   }
 
-  /* Focus ring — 2px solid accent, offset 2px */
+  /* Focus ring: 2px solid accent, offset 2px */
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -257,23 +270,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* MessageThread follow-up composer — caret (50/50 blink, step via tight keyframes + linear) */
-  @keyframes composer-caret-blink {
-    0%, 49.999% {
-      opacity: 1;
-    }
-    50%, 100% {
-      opacity: 0;
-    }
-  }
-
-  .followup-composer-caret {
-    width: 1.5px;
-    height: 16px;
-    background-color: var(--accent);
-    animation: composer-caret-blink 1.06s linear infinite;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .page-enter { animation: none; }
     * {
@@ -281,9 +277,35 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
     }
-    .followup-composer-caret {
-      animation: none !important;
-      opacity: 1;
-    }
+  }
+}
+
+/* MessageThread follow-up composer caret (unlayered so utilities don’t suppress visibility) */
+@keyframes composer-caret-blink {
+  0%, 49.999% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.followup-composer-caret {
+  box-sizing: border-box;
+  display: inline-block;
+  flex-shrink: 0;
+  align-self: center;
+  width: 1.5px;
+  min-width: 1.5px;
+  height: 16px;
+  background-color: var(--text);
+  vertical-align: middle;
+  animation: composer-caret-blink 1.06s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .followup-composer-caret {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }

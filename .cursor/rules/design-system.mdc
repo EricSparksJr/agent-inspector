@@ -28,7 +28,7 @@ alwaysApply: true
 Use these exactly. Never invent new shades.
 
 LIGHT (default):
-  --bg:           #FAFAFA
+  --page-bg / --bg:  canonical hex only in app/globals.css (`--bg` aliases `--page-bg`)
   --bg-elevated:  #FFFFFF
   --bg-subtle:    #F4F4F5
   --bg-accent:    #EFF4FF
