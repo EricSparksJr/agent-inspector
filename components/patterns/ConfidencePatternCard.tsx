@@ -11,7 +11,6 @@ import {
   Mail,
   MessageSquare,
   BarChart2,
-  Sparkles,
 } from "lucide-react"
 
 // ─── types ────────────────────────────────────────────────────────────────────
@@ -316,13 +315,22 @@ export default function ConfidencePatternCard({
             </div>
           </div>
 
-          {/* Agent response — sparkle icon + plain prose, no bubble */}
+          {/* Agent response — solid accent star + plain prose, no bubble */}
           <div className="flex items-start gap-3">
-            <Sparkles
+            <svg
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
               className="mt-0.5 shrink-0"
-              style={{ width: 20, height: 20, color: "var(--text-subtle)" }}
-              strokeWidth={1.5}
-            />
+              aria-hidden
+            >
+              <path
+                d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"
+                fill="var(--accent)"
+              />
+            </svg>
             <AnimatePresence mode="wait">
               <motion.p
                 key={state}

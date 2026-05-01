@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
-  Sparkles,
   Copy,
   CalendarPlus,
   RotateCcw,
@@ -13,6 +12,7 @@ import {
   Mail,
   MessageSquare,
   Check,
+  ArrowUp,
 } from "lucide-react"
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
@@ -366,12 +366,21 @@ function AssistantTurn({
 
   return (
     <div className="flex items-start gap-3">
-      {/* Sparkle icon — top-left anchor */}
-      <Sparkles
+      {/* Assistant indicator — solid accent star (no stroke / gradient) */}
+      <svg
+        width={16}
+        height={16}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         className="mt-0.5 shrink-0"
-        style={{ width: 20, height: 20, color: "var(--text-subtle)" }}
-        strokeWidth={1.5}
-      />
+        aria-hidden
+      >
+        <path
+          d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"
+          fill="var(--accent)"
+        />
+      </svg>
 
       <div className="min-w-0 flex-1">
         {/* Prose with inline citations */}
@@ -570,6 +579,35 @@ export default function MessageThread({
           </div>
         </div>
 
+        {/* Static follow-up composer (visual demo only; not wired to input handlers) */}
+        <div className="shrink-0">
+          <div
+            className="mx-4 h-px shrink-0"
+            style={{ backgroundColor: "var(--border)" }}
+          />
+          <div className="flex items-center justify-between px-4 py-3.5">
+            <span className="inline-flex items-center gap-0">
+              <span
+                className="text-[15px] leading-[1.6]"
+                style={{ color: "#94949C" }}
+              >
+                Ask a follow-up
+              </span>
+              <span
+                className="followup-composer-caret ml-px inline-block shrink-0 align-middle"
+                aria-hidden
+              />
+            </span>
+            <button
+              type="button"
+              aria-label="Send message"
+              className="followup-composer-send group inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-[#F5F5F7] p-0 text-[#94949C] shadow-none outline-none transition-colors duration-[120ms] hover:bg-[#EBEBED] hover:text-[#28251D] focus:outline-none focus-visible:outline-none dark:bg-[rgba(255,255,255,0.06)] dark:text-[#94949C] dark:hover:bg-[rgba(255,255,255,0.1)] dark:hover:text-white"
+            >
+              <ArrowUp className="size-3.5 shrink-0" strokeWidth={2} />
+            </button>
+          </div>
+        </div>
+
         {/* Scroll-to-latest floater */}
         <AnimatePresence>
           {showScrollBtn && !numbered && (
@@ -582,7 +620,7 @@ export default function MessageThread({
               onClick={() =>
                 bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
               }
-              className="absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] transition-colors duration-[120ms]"
+              className="absolute bottom-[5.25rem] right-4 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] transition-colors duration-[120ms]"
               style={{
                 backgroundColor: "var(--bg-elevated)",
                 border: "1px solid var(--border)",
