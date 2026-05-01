@@ -29,23 +29,25 @@ export default function SiteNav() {
           className="flex items-center gap-2 text-sm font-medium transition-opacity duration-[120ms] hover:opacity-70"
           style={{ color: "var(--text)" }}
         >
-          {/* 2×2 pattern-grid mark: top-left square in accent, others in text */}
+          {/* Split-lens mark: two halves making a whole, with transparent center gap */}
           <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
+            width="20"
+            height="20"
+            viewBox="0 0 32 32"
             fill="none"
             aria-hidden="true"
             style={{ flexShrink: 0 }}
           >
-            {/* top-left — accent */}
-            <rect x="0" y="0" width="7" height="7" rx="1" fill="var(--accent)" />
-            {/* top-right */}
-            <rect x="11" y="0" width="7" height="7" rx="1" fill="currentColor" />
-            {/* bottom-left */}
-            <rect x="0" y="11" width="7" height="7" rx="1" fill="currentColor" />
-            {/* bottom-right */}
-            <rect x="11" y="11" width="7" height="7" rx="1" fill="currentColor" />
+            {/* Left half */}
+            <path
+              d="M9 2H15V30H9C5.13401 30 2 26.866 2 23V9C2 5.13401 5.13401 2 9 2Z"
+              fill="var(--accent)"
+            />
+            {/* Right half */}
+            <path
+              d="M17 2H23C26.866 2 30 5.13401 30 9V23C30 26.866 26.866 30 23 30H17V2Z"
+              fill="var(--accent)"
+            />
           </svg>
           Agent Inspector
         </Link>
