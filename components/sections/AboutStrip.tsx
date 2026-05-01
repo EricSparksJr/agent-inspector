@@ -10,7 +10,7 @@ export default function AboutStrip() {
               className="text-[12px] font-medium uppercase tracking-[0.08em]"
               style={{ color: "var(--text-subtle)" }}
             >
-              About the Author
+              About
             </p>
           </div>
 
@@ -20,9 +20,27 @@ export default function AboutStrip() {
               className="text-pretty leading-[1.65]"
               style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
             >
-              Eric Sparks is a product designer at Microsoft. He started this
-              library because pattern references for agent experience design are
-              scattered across blog posts, internal docs, and Twitter threads.
+              The engineering patterns for AI agents are well-documented. The
+              interaction patterns are not. How trust, control, and recovery
+              should feel from the user's side of the screen is still spread
+              across blog posts, conference talks, and product launches.
+            </p>
+
+            <p
+              className="mt-5 text-pretty leading-[1.65]"
+              style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
+            >
+              Agent Inspector names those patterns, builds them, and argues
+              for them.
+            </p>
+
+            <p
+              className="mt-5 text-pretty leading-[1.65]"
+              style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
+            >
+              Eric Sparks is a product designer at Microsoft. This library is
+              shaped by his work designing AI products inside enterprise
+              software.
             </p>
 
             <div className="mt-6 space-y-1.5">
