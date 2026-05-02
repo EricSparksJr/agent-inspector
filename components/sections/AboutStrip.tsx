@@ -22,7 +22,7 @@ export default function AboutStrip() {
             >
               The engineering patterns for AI agents are well-documented. The
               interaction patterns are not. How trust, control, and recovery
-              should feel from the user's side of the screen is still spread
+              should feel from the user&apos;s side of the screen is still spread
               across blog posts, conference talks, and product launches.
             </p>
 

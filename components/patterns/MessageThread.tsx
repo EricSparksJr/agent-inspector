@@ -244,7 +244,9 @@ function InlineCitationPill({
             <button
               type="button"
               aria-label={`Citation ${citation.id}: ${source?.title ?? "source"}`}
-              className="mx-0.5 inline-flex items-center rounded px-1.5 py-0.5 text-[12px] transition-colors duration-[120ms] hover:bg-bg-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
+              className={
+                "mx-0.5 inline-flex items-center rounded px-1.5 py-0.5 text-[12px] transition-colors duration-[120ms] hover:bg-bg-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
+              }
               style={{
                 backgroundColor: "var(--bg-subtle)",
                 color: "var(--text-muted)",
@@ -282,7 +284,7 @@ function InlineCitationPill({
               className="leading-[1.5] text-pretty"
               style={{ color: "var(--text-muted)" }}
             >
-              "{citation.quote}"
+              {'"'}{citation.quote}{'"'}
             </p>
           </PopoverPrimitive.Popup>
         </PopoverPrimitive.Positioner>
@@ -477,7 +479,9 @@ function AssistantSingleRowFooter({ message }: { message: AssistantMessage }) {
             aria-expanded={sourcesOpen}
             aria-controls={sourcesPanelId}
             onClick={() => setSourcesOpen((o) => !o)}
-            className="group/sources inline-flex cursor-pointer items-center gap-1 border-0 bg-transparent p-0 font-[inherit] outline-none transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)]"
+            className={
+              "group/sources inline-flex cursor-pointer items-center gap-1 border-0 bg-transparent p-0 font-[inherit] outline-none transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)]"
+            }
             style={{ color: "var(--text-muted)" }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "var(--text)"
@@ -644,7 +648,7 @@ function AssistantTurn({
               message.content,
               message.citations,
               message.sources,
-              !showMetadata
+              !showMetadata,
             )}
           </motion.p>
         </AnimatePresence>
@@ -838,7 +842,9 @@ export default function MessageThread({
   const composerHairlineInset = variant === "compact" ? "mx-5" : "mx-6"
 
   return (
-    <div className={cn("relative flex flex-col", numbered && "ml-10")}>
+    <div
+      className={cn("relative flex flex-col", numbered && "ml-10")}
+    >
       {showWithWithoutToggle && !patternToggleInsideCard && (
         <WithWithoutToggle value={withState} onChange={setWithState} />
       )}
@@ -869,7 +875,7 @@ export default function MessageThread({
           <div className={cn("flex flex-col", scrollInnerPad)}>
             <div className="flex flex-col gap-5">
               <AnimatePresence initial={false}>
-                {messages.map((msg, i) => (
+                {messages.map((msg) => (
                   <motion.div
                     key={msg.id}
                     initial={{ opacity: 0, y: 8 }}

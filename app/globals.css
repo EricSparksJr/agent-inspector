@@ -100,9 +100,6 @@
   --card-bg: #FFFFFF;
   --card-border: rgba(0, 0, 0, 0.08);
   --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
-  --card-shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-
-  /* ── Type scale ──────────────────────────────────────────────── */
   --text-display:  4rem;        /* 64px */
   --text-h1:       3rem;        /* 48px */
   --text-h2:       1.75rem;     /* 28px */

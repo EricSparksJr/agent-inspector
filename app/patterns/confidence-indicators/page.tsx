@@ -497,7 +497,7 @@ export default function ConfidenceIndicatorsPage() {
               className="mt-3 text-balance font-semibold leading-[1.2]"
               style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
             >
-              What this pattern doesn't solve.
+              What this pattern doesn&apos;t solve.
             </h2>
             <p
               className="mt-4 max-w-[64ch] text-pretty leading-[1.6]"
@@ -506,7 +506,7 @@ export default function ConfidenceIndicatorsPage() {
                 color: "var(--text-muted)",
               }}
             >
-              Four failure modes that exist outside this pattern's scope. Each
+              Four failure modes that exist outside this pattern&apos;s scope. Each
               requires its own treatment.
             </p>
             <div className="mt-12">
