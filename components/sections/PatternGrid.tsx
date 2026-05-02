@@ -126,9 +126,6 @@ function LiveCard({ pattern }: { pattern: (typeof patterns)[number] }) {
           style={{ color: "var(--text)", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
         >
           Open pattern
-          <span className="ml-[2px]" aria-hidden>
-            →
-          </span>
         </span>
       </div>
     </div>
