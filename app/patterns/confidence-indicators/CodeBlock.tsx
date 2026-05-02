@@ -7,7 +7,6 @@ const CODE = `type ConfidenceTier = "high" | "medium" | "low"
 
 interface ConfidenceData {
   tier: ConfidenceTier
-  percent: number
   reasoning: string
 }
 
@@ -25,26 +24,21 @@ const TIER_LABEL: Record<ConfidenceTier, string> = {
 
 export function ConfidenceChip({ confidence }: { confidence: ConfidenceData }) {
   return (
-    <Tooltip>
-      <TooltipTrigger>
-        <span className="inline-flex items-center gap-1.5 text-[12px] cursor-help">
-          <span
-            aria-hidden
-            className="size-1.5 rounded-full"
-            style={{ backgroundColor: TIER_DOT[confidence.tier] }}
-          />
-          <span style={{ color: "var(--text-muted)" }}>
-            {TIER_LABEL[confidence.tier]}
-          </span>
+    <Popover>
+      <PopoverTrigger className="inline-flex items-center gap-1.5 text-[12px]">
+        <span
+          aria-hidden
+          className="size-1.5 rounded-full"
+          style={{ backgroundColor: TIER_DOT[confidence.tier] }}
+        />
+        <span style={{ color: "var(--text-muted)" }}>
+          {TIER_LABEL[confidence.tier]}
         </span>
-      </TooltipTrigger>
-      <TooltipContent side="top" className="max-w-[280px]">
+      </PopoverTrigger>
+      <PopoverContent side="top" className="max-w-[280px]">
         <p className="text-[13px]">{confidence.reasoning}</p>
-        <p className="text-[12px] mt-1" style={{ color: "var(--text-subtle)" }}>
-          Internal score: {confidence.percent}%
-        </p>
-      </TooltipContent>
-    </Tooltip>
+      </PopoverContent>
+    </Popover>
   )
 }`
 
