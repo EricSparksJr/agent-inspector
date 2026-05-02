@@ -51,6 +51,7 @@
   --color-text:                    var(--text);
   --color-text-muted:              var(--text-muted);
   --color-text-subtle:             var(--text-subtle);
+  --color-text-faint:              var(--text-faint);
   --color-accent-hover:            var(--accent-hover);
   --color-success:                 var(--success);
   --color-caution:                 var(--caution);
@@ -87,6 +88,7 @@
   --text:          #171717;
   --text-muted:    #525252;
   --text-subtle:   #737373;
+  --text-faint:    #A3A3A3;
   --accent:        #0070F3;
   --accent-hover:  #0761D1;
   --success:       #15803D;
@@ -163,6 +165,7 @@
   --text:          #EDEDED;
   --text-muted:    #A1A1A1;
   --text-subtle:   #707070;
+  --text-faint:    #737373;
   --accent:        #3291FF;
   --accent-hover:  #5DA9FF;
   --success:       #4ADE80;

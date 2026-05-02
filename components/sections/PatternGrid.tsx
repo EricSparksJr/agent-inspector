@@ -10,11 +10,11 @@ const CARD_BASE =
 function PillLive() {
   return (
     <span
-      className="shrink-0 rounded-[4px] px-2 py-1 text-[11px] font-normal uppercase tracking-[0.04em]"
+      className="inline-flex h-[22px] shrink-0 items-center rounded-full border border-solid px-[10px] text-[11px] font-bold uppercase tracking-wide"
       style={{
-        fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
-        backgroundColor: "var(--accent)",
-        color: "#fff",
+        fontFamily: "var(--font-sans), system-ui, sans-serif",
+        borderColor: "var(--accent)",
+        color: "var(--accent)",
       }}
     >
       Live
@@ -25,12 +25,11 @@ function PillLive() {
 function PillInProgress() {
   return (
     <span
-      className="shrink-0 rounded-[4px] border border-solid px-2 py-1 text-[11px] font-normal uppercase tracking-[0.04em]"
+      className="inline-flex h-[22px] shrink-0 items-center rounded-full border border-solid px-[10px] text-[11px] font-bold uppercase tracking-wide"
       style={{
-        fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
-        color: "var(--text-muted)",
-        backgroundColor: "transparent",
-        borderColor: "var(--border)",
+        fontFamily: "var(--font-sans), system-ui, sans-serif",
+        borderColor: "var(--text-faint)",
+        color: "var(--text-faint)",
       }}
     >
       In progress
@@ -40,7 +39,7 @@ function PillInProgress() {
 
 export default function PatternGrid() {
   return (
-    <section id="patterns" className="pt-24 pb-40">
+    <section id="patterns" className="pb-40 pt-24">
       <div className="mx-auto max-w-[1200px] px-6 md:px-10">
 
         <div className="mb-10">
@@ -51,7 +50,7 @@ export default function PatternGrid() {
             Library
           </p>
           <h2
-            className="mb-4 font-semibold leading-[1.15] tracking-[-0.01em] text-balance"
+            className="mb-4 text-balance font-semibold leading-[1.15] tracking-[-0.01em]"
             style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
           >
             Six patterns
@@ -69,7 +68,7 @@ export default function PatternGrid() {
           className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 [grid-auto-rows:1fr]"
         >
           {patterns.map((pattern, index) => {
-            const isLive = !!pattern.href
+            const isLive = pattern.status === "live"
             return (
               <motion.div
                 key={pattern.id}
@@ -80,11 +79,11 @@ export default function PatternGrid() {
                 viewport={{ once: true, margin: "-40px" }}
               >
                 {isLive ? (
-                  <Link href={pattern.href!} className="group block h-full min-h-0 cursor-pointer">
+                  <Link href={pattern.href!} className="block h-full min-h-0">
                     <LiveCard pattern={pattern} />
                   </Link>
                 ) : (
-                  <ComingSoonCard pattern={pattern} />
+                  <InProgressCard pattern={pattern} />
                 )}
               </motion.div>
             )
@@ -99,25 +98,25 @@ export default function PatternGrid() {
 function LiveCard({ pattern }: { pattern: (typeof patterns)[number] }) {
   return (
     <div
-      className={`${CARD_BASE} group-hover:[border-color:var(--accent)]`}
+      className={CARD_BASE}
       style={{
         backgroundColor: "var(--card-bg)",
-        border: "1px solid var(--card-border)",
+        border: "1px solid var(--border)",
         boxShadow: "var(--card-shadow)",
       }}
     >
       <div className="mb-3 flex items-start justify-between gap-3">
         <h3
-          className="min-w-0 flex-1 pr-2 font-semibold leading-[1.25] tracking-[-0.005em] text-balance"
-          style={{ fontSize: "var(--text-h3)", color: "var(--text)" }}
+          className="min-w-0 flex-1 pr-2 text-balance text-[20px] font-bold leading-[1.25] tracking-[-0.005em]"
+          style={{ color: "var(--text)", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
         >
           {pattern.name}
         </h3>
         <PillLive />
       </div>
       <p
-        className="min-h-0 flex-1 text-pretty leading-[1.6]"
-        style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
+        className="min-h-0 flex-1 text-pretty text-[15px] leading-[1.6]"
+        style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
       >
         {pattern.description}
       </p>
@@ -136,32 +135,33 @@ function LiveCard({ pattern }: { pattern: (typeof patterns)[number] }) {
   )
 }
 
-function ComingSoonCard({ pattern }: { pattern: (typeof patterns)[number] }) {
+function InProgressCard({ pattern }: { pattern: (typeof patterns)[number] }) {
   return (
     <div
       className={CARD_BASE}
       style={{
         backgroundColor: "var(--card-bg)",
-        border: "1px solid var(--card-border)",
+        borderStyle: "dashed",
+        borderColor: "#C4C4C4",
+        borderWidth: "1px",
         boxShadow: "var(--card-shadow)",
       }}
     >
       <div className="mb-3 flex items-start justify-between gap-3">
         <h3
-          className="min-w-0 flex-1 pr-2 font-semibold leading-[1.25] tracking-[-0.005em] text-balance opacity-70"
-          style={{ fontSize: "var(--text-h3)", color: "var(--text)" }}
+          className="min-w-0 flex-1 pr-2 text-balance text-[18px] font-bold leading-[1.25] tracking-[-0.005em]"
+          style={{ color: "var(--text-faint)", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
         >
           {pattern.name}
         </h3>
         <PillInProgress />
       </div>
       <p
-        className="min-h-0 flex-1 text-pretty leading-[1.6]"
-        style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
+        className="min-h-0 flex-1 text-pretty text-[15px] leading-[1.6]"
+        style={{ color: "var(--text-faint)", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
       >
         {pattern.description}
       </p>
-      <div className="mt-auto pt-6" aria-hidden />
     </div>
   )
 }
