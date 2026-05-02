@@ -29,7 +29,7 @@ const DECISIONS = [
   {
     decision: "Categorical tier vs raw percentage",
     considered: "High/Med/Low chips, 5-star rating, raw probability, slider",
-    why: "Numeric confidence drifts with model version and prompting in ways the user cannot see. Categorical tiers survive that drift and align with how people actually decide: act, verify, or confirm. The raw score is preserved on the chip's hover tooltip for users who want it.",
+    why: "Numeric confidence drifts with model version and prompting in ways the user cannot see. Categorical tiers survive that drift and align with how people actually decide: act, verify, or confirm. The raw numeric value stays in the chip detail panel for users who open it.",
   },
   {
     decision: "Inline metadata strip vs separate confidence panel",
@@ -44,7 +44,7 @@ const DECISIONS = [
   {
     decision: "Reasoning on hover vs reasoning in row",
     considered: "Inline grounding sentence, tooltip-only, expandable detail",
-    why: "The reasoning matters for users who want to inspect the call, but it adds a full extra row of vertical space for users who do not. Hover keeps the row compact while preserving the signal for anyone who wants it.",
+    why: "The reasoning matters for users who want to inspect the call, but it adds a full extra row of vertical space for users who do not. Keeping that detail behind the chip keeps the row compact while preserving the signal for anyone who opens it.",
   },
   {
     decision: "Three semantic tiers vs two",
@@ -91,7 +91,7 @@ const ANATOMY_ITEMS: {
     num: "02",
     title: "Confidence indicator",
     locator: "Metadata strip, left edge",
-    body: "A semantic chip in the metadata strip. Color encodes the model's calibrated confidence tier: green for high, amber for medium, red for low. Click the chip to see why the agent landed on that tier, including the source count and recency that produced the score.",
+    body: "A semantic chip in the metadata strip. Color encodes the calibrated confidence tier, green for high, amber for medium, red for low. Click the chip for the tier rationale plus how many sources corroborate the answer.",
   },
   {
     num: "03",
@@ -102,9 +102,9 @@ const ANATOMY_ITEMS: {
         A muted button labeled {anatomyInlineLabel("3 sources")} (count is
         dynamic) with a rotating chevron. Click expands a row of pills, one per
         system the agent consulted. Each pill shows the system icon and the source
-        title. Pills carry a state indicator only when the source is outdated or
-        unverified, rendered with dimmed text and a colored dot. Verified sources
-        render at full opacity without an indicator.
+        title. Pills carry a status indicator only when the source is not
+        independently confirmed, rendered with dimmed text and a colored dot.
+        Verified sources render at full opacity without an indicator.
       </>
     ),
   },

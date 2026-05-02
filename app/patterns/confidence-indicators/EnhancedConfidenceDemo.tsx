@@ -15,14 +15,14 @@ const UNCERTAIN_MESSAGES: Message[] = [
     id: "a-unc",
     role: "assistant",
     content:
-      "I found references to a policy update but the information is incomplete and may be outdated. [1] I recommend checking with HR for the current version. [2]",
+      "I found snippets about an ongoing policy rewrite in two places. [1] Neither excerpt states your exact rule verbatim. [2]",
     citations: [
       { id: 1, sourceId: "docs-unc", quote: "Policy doc last updated Q3 2024. May be superseded." },
       { id: 2, sourceId: "slack-unc", quote: "HR mentioned a new policy is in review." },
     ],
     confidence: { tier: "low", percent: 34 },
     sources: [
-      { id: "docs-unc",  title: "Docs: Policy v3 (outdated)", type: "doc",   verified: false },
+      { id: "docs-unc",  title: "Docs: Policy index (unverified)", type: "doc",   verified: false },
       { id: "slack-unc", title: "Slack: HR thread",            type: "slack", verified: false },
     ],
   },

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useId } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Copy,
@@ -12,44 +12,7 @@ import {
   MessageSquare,
   BarChart2,
 } from "lucide-react"
-
-function ConfidencePatternSparkleIcon() {
-  const sparkleGradId = `ai-sparkle-gradient-cpc-${useId().replace(/:/g, "")}`
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
-      fill="none"
-      className="mt-0.5 shrink-0"
-      aria-hidden
-    >
-      <defs>
-        <linearGradient
-          id={sparkleGradId}
-          x1={2}
-          y1={2}
-          x2={22}
-          y2={22}
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#0070F3" />
-          <stop offset="100%" stopColor="#5AA9FF" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M12 0L13.5 8.5L22 10L13.5 11.5L12 20L10.5 11.5L2 10L10.5 8.5L12 0Z"
-        fill={`url(#${sparkleGradId})`}
-      />
-      <path
-        d="M19 14L19.7 17.3L23 18L19.7 18.7L19 22L18.3 18.7L15 18L18.3 17.3L19 14Z"
-        fill={`url(#${sparkleGradId})`}
-        opacity={0.7}
-      />
-    </svg>
-  )
-}
+import { SparkleMark } from "@/components/icons/SparkleMark"
 
 // ─── types ────────────────────────────────────────────────────────────────────
 
@@ -353,9 +316,9 @@ export default function ConfidencePatternCard({
             </div>
           </div>
 
-          {/* Agent response — 8-point sparkle + plain prose, no bubble */}
+          {/* Agent response — sparkle mark + plain prose, no bubble */}
           <div className="flex items-start gap-3">
-            <ConfidencePatternSparkleIcon />
+            <SparkleMark className="mt-0.5 shrink-0" />
             <AnimatePresence mode="wait">
               <motion.p
                 key={state}

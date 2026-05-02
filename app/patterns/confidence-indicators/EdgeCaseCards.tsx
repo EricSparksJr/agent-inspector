@@ -3,7 +3,8 @@
 const EDGE_CASES = [
   {
     title: "When confidence is wrong",
-    body: "A stale source returns cached data. The chip reads high confidence but the answer is incorrect. Source freshness is out of scope for this pattern. It belongs to a separate retrieval and indexing layer.",
+    body:
+      "A trusted-looking excerpt backs an incorrect factual read. The chip tracks match quality for what was retrieved. It does not test whether upstream storage or indexing was wrong at the corpus layer. Broader ingestion health lives outside this pattern.",
   },
   {
     title: "When sources within a turn conflict",

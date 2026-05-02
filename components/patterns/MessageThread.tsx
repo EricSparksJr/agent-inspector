@@ -18,6 +18,7 @@ import {
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
 import { cn } from "@/lib/utils"
+import { SparkleMark } from "@/components/icons/SparkleMark"
 import { DemoGroundingSignalsTray } from "@/components/patterns/DemoGroundingSignalsTray"
 
 // ─── types (re-exported from shared data module) ─────────────────────────────
@@ -75,26 +76,67 @@ const TIER_HEADLINE: Record<ConfidenceTier, string> = {
   low: "Low confidence",
 }
 
-/** Confidence chip popover: Sources + Recency lines per tier (fixed copy). */
-const CHIP_POPOVER_LINES: Record<
-  ConfidenceTier,
-  { sourcesValue: string; recencyValue: string }
-> = {
-  high: {
-    sourcesValue: "3 verified",
-    recencyValue: "within 30 days",
-  },
-  medium: {
-    sourcesValue: "2 verified \u00b7 1 outdated",
-    recencyValue: "mixed (last 6 months)",
-  },
-  low: {
-    sourcesValue: "1 verified \u00b7 2 unverified",
-    recencyValue: "outdated (90+ days)",
-  },
-}
 const SOURCE_ICONS: Record<SourceType, React.ElementType> = {
   notion: FileText, crm: Database, email: Mail, doc: FileText, slack: MessageSquare,
+}
+
+/** Tally format for chip popover line 2. Title carries context for source counts. */
+function chipPopoverSourceLine(sources: Source[]): string {
+  const verified = sources.filter((s) => s.verified).length
+  const unverified = sources.length - verified
+  if (unverified === 0) {
+    return `${verified} verified`
+  }
+  return `${verified} verified, ${unverified} unverified`
+}
+
+/** One evidence-only sentence for chip popover. No freshness claims. */
+function chipPopoverEvidenceLine(message: AssistantMessage): string {
+  const { sources } = message
+  const n = sources.length
+  const v = sources.filter((s) => s.verified).length
+  const u = n - v
+  switch (message.confidence.tier) {
+    case "high": {
+      if (u === 0 && v === n && v === 3) {
+        return "All three sources agree on this answer."
+      }
+      if (u > 0 && v > 0) {
+        return `${v} of ${n} named sources corroborate the reading shown here. Others do not.`
+      }
+      if (v === 1 && u === 0) {
+        return "The single listed source supports the excerpts shown here."
+      }
+      if (v === 2 && u === 0) {
+        return "Both sources agree on this answer."
+      }
+      if (v === n && n > 0) {
+        return `All ${n} sources agree on this answer.`
+      }
+      return "Listed sources corroborate the answer."
+    }
+    case "medium": {
+      if (v === 2 && u === 1 && n === 3) {
+        return "Two of three sources agree on this answer. One disagrees."
+      }
+      if (v > 0 && u > 0) {
+        return u === 1
+          ? `${v} of ${n} named sources corroborate the reading. One does not.`
+          : `${v} of ${n} named sources corroborate the reading. Others do not.`
+      }
+      return "The cited lines still leave part of the question open."
+    }
+    case "low":
+      if (v === 0) {
+        return "No source has been independently verified."
+      }
+      if (v === 1 && u >= 2) {
+        return "No second verified source corroborates this answer."
+      }
+      return "Corroboration across the listed names is uneven."
+    default:
+      return ""
+  }
 }
 
 const EASE = [0.4, 0, 0.2, 1] as const
@@ -105,10 +147,15 @@ function confidenceReasoning(message: AssistantMessage): string {
   switch (message.confidence.tier) {
     case "high":
       return `Based on ${verified} verified ${vLabel}, with recent matching sources and no conflicting signals.`
-    case "medium":
-      return `Based on ${verified} verified ${vLabel} and partial context. Verify before acting.`
+    case "medium": {
+      const unv = message.sources.filter((s) => !s.verified).length
+      if (unv > 0) {
+        return `Based on ${verified} verified ${vLabel} and partial context. ${unv === 1 ? "One named source is unverified in the list." : `${unv} named sources are unverified in the list.`}`
+      }
+      return `Based on ${verified} verified ${vLabel} and partial context. The cited passages still leave open details next to the question.`
+    }
     case "low":
-      return `Sources are limited or unverified. Confirm before you rely on this.`
+      return `Sources are limited or unverified. No single passage answers the full question with the current corpus.`
     default:
       return ""
   }
@@ -131,31 +178,21 @@ function ConfidenceChipPopover({
   const [open, setOpen] = useState(false)
   const dotColor = TIER_DOT_COLOR[message.confidence.tier]
   const tierLabel = TIER_HEADLINE[message.confidence.tier]
-  const lines = CHIP_POPOVER_LINES[message.confidence.tier]
   const tierTitleId = useId()
   const popoverDescId = useId()
-
-  const valueNumericStyle: CSSProperties = {
-    color: "var(--text)",
-    fontVariantNumeric: "lining-nums tabular-nums",
-  }
+  const sourceLine = chipPopoverSourceLine(message.sources)
+  const evidenceLine = chipPopoverEvidenceLine(message)
 
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={(next) => setOpen(next)}>
       <PopoverPrimitive.Trigger
         type="button"
-        role="button"
-        tabIndex={0}
-        openOnHover
-        delay={150}
-        closeDelay={100}
         aria-expanded={open}
         aria-haspopup="dialog"
         className={cn(
-          "inline-flex cursor-default items-center gap-1.5 rounded border-0 bg-transparent p-0 font-[inherit] text-[inherit] outline-none transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)]",
+          "inline-flex cursor-pointer items-center gap-1.5 rounded-md border-0 bg-transparent p-0 font-[inherit] text-[inherit] outline-none transition-colors duration-[120ms] hover:bg-bg-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)]",
           triggerClassName,
         )}
-        aria-label={`${tierLabel}. Open detail panel for trust summary.`}
       >
         <span
           aria-hidden
@@ -170,14 +207,14 @@ function ConfidenceChipPopover({
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Positioner side="top" sideOffset={8} className="z-50">
           <PopoverPrimitive.Popup
-            role="tooltip"
-            aria-modal={false}
-            initialFocus={false}
-            finalFocus={false}
+            role="dialog"
+            aria-modal
+            initialFocus
+            finalFocus
             aria-labelledby={tierTitleId}
             aria-describedby={popoverDescId}
             className={cn(
-              "max-w-[280px] rounded-[10px] p-4 outline-none [font-family:var(--font-sans),system-ui,sans-serif]",
+              "w-full max-w-[280px] rounded-[10px] p-4 outline-none [font-family:var(--font-sans),system-ui,sans-serif]",
               reduceMotion
                 ? "transition-opacity duration-[80ms] ease-out data-[starting-style]:opacity-0 data-[ending-style]:opacity-0"
                 : "transition-[opacity,transform] duration-[160ms] ease-out data-[starting-style]:translate-y-1 data-[starting-style]:opacity-0 data-[ending-style]:translate-y-1 data-[ending-style]:opacity-0 data-[ending-style]:duration-[120ms] data-[ending-style]:ease-in",
@@ -188,31 +225,33 @@ function ConfidenceChipPopover({
               boxShadow: "var(--card-shadow-elevated)",
             }}
           >
-            <PopoverPrimitive.Title
-              id={tierTitleId}
-              className="m-0 flex items-center gap-2 text-[13px] font-medium leading-tight"
-              style={{ color: "var(--text)" }}
-            >
-              <span
-                aria-hidden
-                className="block size-2 shrink-0 rounded-full"
-                style={{ backgroundColor: dotColor }}
-              />
-              {tierLabel}
-            </PopoverPrimitive.Title>
+            <div className="flex flex-col gap-2">
+              <PopoverPrimitive.Title
+                id={tierTitleId}
+                className="m-0 flex items-center gap-2 text-[13px] font-medium leading-tight"
+                style={{ color: "var(--text)" }}
+              >
+                <span
+                  aria-hidden
+                  className="block size-2 shrink-0 rounded-full"
+                  style={{ backgroundColor: dotColor }}
+                />
+                {tierLabel}
+              </PopoverPrimitive.Title>
 
-            <div id={popoverDescId} className="mt-3">
-              <div className="flex flex-row items-center gap-1.5 text-[13px] font-normal leading-snug">
-                <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
-                  Sources:
-                </span>
-                <span style={valueNumericStyle}>{lines.sourcesValue}</span>
-              </div>
-              <div className="mt-1.5 flex flex-row items-center gap-1.5 text-[13px] font-normal leading-snug">
-                <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
-                  Recency:
-                </span>
-                <span style={valueNumericStyle}>{lines.recencyValue}</span>
+              <div id={popoverDescId} className="flex flex-col gap-2">
+                <p
+                  className="m-0 text-[13px] font-normal leading-snug text-pretty"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {sourceLine}
+                </p>
+                <p
+                  className="m-0 text-[13px] font-normal leading-snug text-pretty"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {evidenceLine}
+                </p>
               </div>
             </div>
           </PopoverPrimitive.Popup>
@@ -595,43 +634,10 @@ function AssistantTurn({
   researchRailFooter: boolean
 }) {
   const reasoningText = confidenceReasoning(message)
-  const sparkleGradId = `ai-sparkle-gradient-msg-${useId().replace(/:/g, "")}`
 
   return (
     <div className="flex items-start gap-3">
-      {/* Assistant indicator - 8-point sparkle */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={16}
-        height={16}
-        viewBox="0 0 24 24"
-        fill="none"
-        className="mt-0.5 shrink-0"
-        aria-hidden
-      >
-        <defs>
-          <linearGradient
-            id={sparkleGradId}
-            x1={2}
-            y1={2}
-            x2={22}
-            y2={22}
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0%" stopColor="#0070F3" />
-            <stop offset="100%" stopColor="#5AA9FF" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M12 0L13.5 8.5L22 10L13.5 11.5L12 20L10.5 11.5L2 10L10.5 8.5L12 0Z"
-          fill={`url(#${sparkleGradId})`}
-        />
-        <path
-          d="M19 14L19.7 17.3L23 18L19.7 18.7L19 22L18.3 18.7L15 18L18.3 17.3L19 14Z"
-          fill={`url(#${sparkleGradId})`}
-          opacity={0.7}
-        />
-      </svg>
+      <SparkleMark className="mt-0.5 shrink-0" />
 
       <div className="min-w-0 flex-1">
         {/* Prose with inline citations */}

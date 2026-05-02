@@ -42,7 +42,8 @@ export const DEMO_SOURCES_T1: Source[] = [
 ]
 
 export const DEMO_SOURCES_T2: Source[] = [
-  { id: "crm-2",   title: "CRM: Standard contract terms",     type: "crm",   verified: true  },
+  { id: "crm-2",     title: "CRM: Standard contract terms", type: "crm", verified: true },
+  { id: "email-renew", title: "Email: Ops renewal playbook", type: "email", verified: true },
   { id: "slack-1", title: "Slack: Legal thread (unverified)", type: "slack", verified: false },
 ]
 
@@ -73,10 +74,19 @@ export const DEMO_MESSAGES: Message[] = [
     id: "a2",
     role: "assistant",
     content:
-      "Based on similar contracts, missing the deadline typically triggers a 30-day grace period, [1] after which the contract auto-renews at current terms. However, this specific contract's renewal terms aren't fully documented. [2] Confirm the details with legal before taking action.",
+      "Based on similar contracts, missing the deadline typically triggers a 30-day grace period, [1] after which the contract auto-renews at house terms until a new rider is filed. Ops email lines up with that reading for Acme-tier accounts. [3] Renewal language for this specific deal is unfinished in Slack. [2]",
     citations: [
-      { id: 1, sourceId: "crm-2",   quote: "Standard grace period: 30 days post-deadline." },
-      { id: 2, sourceId: "slack-1", quote: "Renewal terms doc not finalized as of Q1." },
+      { id: 1, sourceId: "crm-2", quote: "Standard grace period: 30 days post-deadline." },
+      {
+        id: 2,
+        sourceId: "slack-1",
+        quote: "Renewal rider language not finalized yet for Q1 pushes.",
+      },
+      {
+        id: 3,
+        sourceId: "email-renew",
+        quote: "Ops playbook: grace window and auto-renew remain default unless legal files an override.",
+      },
     ],
     confidence: { tier: "medium", percent: 68 },
     sources: DEMO_SOURCES_T2,

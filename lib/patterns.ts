@@ -54,7 +54,7 @@ export const patterns: Pattern[] = [
     id: "intent-confirmation",
     number: "06",
     name: "Intent Confirmation",
-    description: "Verify ambiguous requests before acting.",
+    description: "Make the user's mapped intent explicit before execution.",
     meta: "",
     spec: "Coming soon",
   },
