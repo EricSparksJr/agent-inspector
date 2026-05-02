@@ -78,13 +78,19 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right column: live demo */}
+          {/* Right column: DEMO label matches PatternGrid "Library"; MessageThread renders toggle then card */}
           <motion.div
             className="min-w-0 self-start"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
+            <p
+              className="mb-4 text-[12px] font-medium uppercase tracking-[0.08em]"
+              style={{ color: "var(--text-subtle)" }}
+            >
+              Demo
+            </p>
             <MessageThread
               messages={DEMO_MESSAGES_SINGLE}
               variant="compact"
