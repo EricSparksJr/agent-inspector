@@ -631,7 +631,7 @@ export default function ConfidenceIndicatorsPage() {
               </span>
               <span
                 className="text-[15px] font-medium"
-                style={{ color: "var(--text-subtle)" }}
+                style={{ color: "var(--text)" }}
               >
                 First pattern in the set
               </span>
@@ -650,7 +650,7 @@ export default function ConfidenceIndicatorsPage() {
               </span>
               <span
                 className="text-[15px] font-medium"
-                style={{ color: "var(--text)" }}
+                style={{ color: "var(--text-subtle)" }}
               >
                 02 / Thought Transparency
               </span>
