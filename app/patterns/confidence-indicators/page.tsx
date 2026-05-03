@@ -621,8 +621,11 @@ export default function ConfidenceIndicatorsPage() {
             className="flex items-start justify-between pt-8"
             style={{ borderTop: "1px solid var(--border)" }}
           >
-            {/* Previous - disabled */}
-            <div className="flex flex-col gap-1">
+            {/* Previous - primary link to library */}
+            <Link
+              href="/"
+              className="flex flex-col gap-1 transition-opacity duration-[180ms] hover:opacity-70"
+            >
               <span
                 className="text-[11px] font-medium uppercase tracking-[0.06em]"
                 style={{ color: "var(--text-subtle)" }}
@@ -635,12 +638,12 @@ export default function ConfidenceIndicatorsPage() {
               >
                 First pattern in the set
               </span>
-            </div>
+            </Link>
 
-            {/* Next - active */}
+            {/* Next - muted, no hover emphasis */}
             <Link
               href="#"
-              className="flex flex-col items-end gap-1 transition-opacity duration-[180ms] hover:opacity-70"
+              className="flex flex-col items-end gap-1"
             >
               <span
                 className="text-[11px] font-medium uppercase tracking-[0.06em]"
