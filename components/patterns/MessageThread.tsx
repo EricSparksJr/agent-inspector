@@ -17,6 +17,12 @@ import {
 } from "lucide-react"
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { SparkleMark } from "@/components/icons/SparkleMark"
 import { DemoGroundingSignalsTray } from "@/components/patterns/DemoGroundingSignalsTray"
@@ -140,6 +146,11 @@ function chipPopoverEvidenceLine(message: AssistantMessage): string {
 }
 
 const EASE = [0.4, 0, 0.2, 1] as const
+
+/** Plain text for clipboard: strip visible `[1]` citation markers from demo prose. */
+function stripCitationMarkers(raw: string): string {
+  return raw.replace(/\[\d+\]/g, "").replace(/\s{2,}/g, " ").trim()
+}
 
 function confidenceReasoning(message: AssistantMessage): string {
   const verified = message.sources.filter((s) => s.verified).length
@@ -489,12 +500,30 @@ function UserTurn({ message }: { message: UserMessage }) {
   )
 }
 
-function AssistantSingleRowFooter({ message }: { message: AssistantMessage }) {
+const META_ROW_ACTION_BTN =
+  "inline-flex size-6 shrink-0 items-center justify-center rounded-md outline-none transition-colors duration-150 hover:bg-[rgba(0,0,0,0.04)] hover:[color:var(--text)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)] disabled:pointer-events-none disabled:opacity-50"
+
+function AssistantSingleRowFooter({
+  message,
+  regenerating,
+  spinNonce,
+  prefersReducedMotion,
+  onRegenerateClick,
+}: {
+  message: AssistantMessage
+  regenerating: boolean
+  spinNonce: number
+  prefersReducedMotion: boolean
+  onRegenerateClick: () => void
+}) {
   const [sourcesOpen, setSourcesOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [feedback, setFeedback] = useState<"helpful" | "not_helpful" | null>(null)
   const sourcesPanelId = useId()
   const n = message.sources.length
   const sourcesLabel = n === 1 ? "source" : "sources"
+
+  const copyPlain = stripCitationMarkers(message.content)
 
   return (
     <div className="flex flex-col">
@@ -545,34 +574,141 @@ function AssistantSingleRowFooter({ message }: { message: AssistantMessage }) {
         {/* Spacer pushes actions to right */}
         <span className="flex-1" aria-hidden />
 
-        {/* Action icons */}
-        <div className="flex items-center gap-1">
-          <FooterIconBtn
-            label="Copy message"
-            onClick={() => {
-              setCopied(true)
-              setTimeout(() => setCopied(false), 2000)
-            }}
-          >
-            {copied ? (
-              <Check
-                className="size-3.5 stroke-[1.75]"
-                style={{ color: "var(--success)" }}
-              />
-            ) : (
-              <Copy className="size-3.5 stroke-[1.75]" />
-            )}
-          </FooterIconBtn>
-          <FooterIconBtn label="Regenerate response">
-            <RotateCcw className="size-3.5 stroke-[1.75]" />
-          </FooterIconBtn>
-          <FooterIconBtn label="Helpful">
-            <ThumbsUp className="size-3.5 stroke-[1.75]" />
-          </FooterIconBtn>
-          <FooterIconBtn label="Not helpful">
-            <ThumbsDown className="size-3.5 stroke-[1.75]" />
-          </FooterIconBtn>
-        </div>
+        <TooltipProvider delay={300}>
+          <div className="flex items-center gap-1">
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <button
+                    type="button"
+                    aria-label="Copy"
+                    className={META_ROW_ACTION_BTN}
+                    style={
+                      copied
+                        ? { color: "#1F8B4C" }
+                        : { color: "var(--text-muted)" }
+                    }
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(copyPlain)
+                        setCopied(true)
+                        window.setTimeout(() => setCopied(false), 2000)
+                      } catch {
+                        /* ignore clipboard failures */
+                      }
+                    }}
+                  />
+                }
+              >
+                {copied ? (
+                  <Check
+                    className="size-3.5 shrink-0 stroke-[1.75]"
+                    style={{ color: "#1F8B4C" }}
+                  />
+                ) : (
+                  <Copy className="size-3.5 shrink-0 stroke-[1.75]" />
+                )}
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={5}>
+                {copied ? "Copied" : "Copy"}
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <button
+                    type="button"
+                    aria-label="Regenerate"
+                    aria-disabled={regenerating}
+                    disabled={regenerating}
+                    className={META_ROW_ACTION_BTN}
+                    style={{ color: "var(--text-muted)" }}
+                    onClick={() => {
+                      if (regenerating) return
+                      onRegenerateClick()
+                    }}
+                  />
+                }
+              >
+                {regenerating && !prefersReducedMotion ? (
+                  <motion.span
+                    key={spinNonce}
+                    className="inline-flex"
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 0.6, ease: "linear" }}
+                  >
+                    <RotateCcw className="size-3.5 shrink-0 stroke-[1.75]" />
+                  </motion.span>
+                ) : (
+                  <RotateCcw className="size-3.5 shrink-0 stroke-[1.75]" />
+                )}
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={5}>
+                Regenerate
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <button
+                    type="button"
+                    aria-label="Helpful"
+                    aria-pressed={feedback === "helpful"}
+                    className={META_ROW_ACTION_BTN}
+                    style={{ color: "var(--text-muted)" }}
+                    onClick={() =>
+                      setFeedback((cur) =>
+                        cur === "helpful" ? null : "helpful")}
+                  />
+                }
+              >
+                <ThumbsUp
+                  className="size-3.5 shrink-0"
+                  strokeWidth={feedback === "helpful" ? 2 : 1.75}
+                  fill={feedback === "helpful" ? "#1F8B4C" : "none"}
+                  stroke={
+                    feedback === "helpful" ? "#1F8B4C" : "currentColor"
+                  }
+                />
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={5}>
+                Helpful
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <button
+                    type="button"
+                    aria-label="Not helpful"
+                    aria-pressed={feedback === "not_helpful"}
+                    className={META_ROW_ACTION_BTN}
+                    style={{ color: "var(--text-muted)" }}
+                    onClick={() =>
+                      setFeedback((cur) =>
+                        cur === "not_helpful" ? null : "not_helpful")}
+                  />
+                }
+              >
+                <ThumbsDown
+                  className="size-3.5 shrink-0"
+                  strokeWidth={feedback === "not_helpful" ? 2 : 1.75}
+                  fill={feedback === "not_helpful" ? "#525252" : "none"}
+                  stroke={
+                    feedback === "not_helpful" ? "#525252" : "currentColor"
+                  }
+                />
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={5}>
+                Not helpful
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        </TooltipProvider>
       </div>
 
       {/* Expandable sources panel */}
@@ -600,28 +736,6 @@ function AssistantSingleRowFooter({ message }: { message: AssistantMessage }) {
   )
 }
 
-function FooterIconBtn({
-  children,
-  label,
-  onClick,
-}: {
-  children: React.ReactNode
-  label: string
-  onClick?: () => void
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      onClick={onClick}
-      className="inline-flex size-6 shrink-0 items-center justify-center rounded-md outline-none transition-colors duration-150 hover:bg-[rgba(0,0,0,0.04)] hover:[color:var(--text)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)]"
-      style={{ color: "var(--text-muted)" }}
-    >
-      {children}
-    </button>
-  )
-}
-
 // ─── assistant turn ───────────────────────────────────────────────────────────
 
 function AssistantTurn({
@@ -634,6 +748,20 @@ function AssistantTurn({
   researchRailFooter: boolean
 }) {
   const reasoningText = confidenceReasoning(message)
+  const prefersReducedMotion = useReducedMotion()
+  const [regenerating, setRegenerating] = useState(false)
+  const [spinNonce, setSpinNonce] = useState(0)
+
+  const pulseBody =
+    regenerating && !prefersReducedMotion && researchRailFooter
+
+  const handleRegenerateClick = () => {
+    if (!prefersReducedMotion) {
+      setSpinNonce((n) => n + 1)
+    }
+    setRegenerating(true)
+    window.setTimeout(() => setRegenerating(false), 600)
+  }
 
   return (
     <div className="flex items-start gap-3">
@@ -645,8 +773,16 @@ function AssistantTurn({
           <motion.p
             key={`${message.id}-content`}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.15, ease: EASE }}
+            animate={
+              pulseBody
+                ? { opacity: [1, 0.4, 1] }
+                : { opacity: 1 }
+            }
+            transition={
+              pulseBody
+                ? { duration: 0.6, ease: "easeInOut" }
+                : { duration: 0.15, ease: EASE }
+            }
             className="leading-[1.6] text-pretty"
             style={{ fontSize: 15, color: "var(--text)", fontWeight: 400 }}
           >
@@ -670,7 +806,13 @@ function AssistantTurn({
               style={{ overflow: "hidden" }}
             >
               {researchRailFooter ? (
-                <AssistantSingleRowFooter message={message} />
+                <AssistantSingleRowFooter
+                  message={message}
+                  regenerating={regenerating}
+                  spinNonce={spinNonce}
+                  prefersReducedMotion={Boolean(prefersReducedMotion)}
+                  onRegenerateClick={handleRegenerateClick}
+                />
               ) : (
                 <div className="mt-3 flex flex-col gap-2 pb-0 pt-1">
                   {/* Categorical confidence + reasoning (calm sentence) */}
