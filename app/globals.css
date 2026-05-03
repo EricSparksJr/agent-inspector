@@ -280,6 +280,14 @@
   }
 }
 
+/* Interactive cursor: Tailwind v4 preflight drops the browser default pointer on buttons.
+   Base UI Switch renders as span[role="switch"], not a native button. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[role="switch"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
 /* MessageThread follow-up composer caret (unlayered so utilities don’t suppress visibility) */
 @keyframes composer-caret-blink {
   0%, 49.999% {
