@@ -67,7 +67,7 @@ export default function Hero() {
                 Explore patterns
               </Button>
               <a
-                href="#about"
+                href="#why-this-exists"
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
                   "h-10 px-5 text-sm font-medium"
