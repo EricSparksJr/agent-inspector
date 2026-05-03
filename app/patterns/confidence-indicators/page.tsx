@@ -212,31 +212,14 @@ export default function ConfidenceIndicatorsPage() {
             certainties. Users learn to either over-trust or ignore the system
             entirely.
           </p>
-
-          <div className={`${S} flex flex-wrap items-center gap-2`}>
-            {["Confidence", "Trust", "Agentic UX"].map((tag) => (
-              <span
-                key={tag}
-                className="rounded-md px-2 py-0.5 font-normal leading-normal"
-                style={{
-                  fontSize: "var(--text-caption)",
-                  color: "var(--text-muted)",
-                  backgroundColor:
-                    "color-mix(in srgb, var(--bg-subtle) 50%, var(--bg))",
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
             SECTION C - Live demo
         ══════════════════════════════════════════════════════════════ */}
-        <div className={GAP}>
+        <div className="mt-12">
           {/* Live status - accent use 1 of 5 */}
-          <div className="mb-6 flex items-center gap-2">
+          <div className="mb-4 flex items-center gap-2">
             <span
               className="shrink-0 rounded-full"
               style={{ width: 6, height: 6, backgroundColor: "var(--accent)" }}
