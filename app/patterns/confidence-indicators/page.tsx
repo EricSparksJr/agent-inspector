@@ -143,7 +143,7 @@ const RELATED_RESEARCH = [
   },
 ] as const
 
-const W = "mx-auto max-w-[1040px] px-6 md:px-10"
+const W = "mx-auto max-w-[1200px] px-6 md:px-10"
 
 // ─── page ─────────────────────────────────────────────────────────────────────
 
@@ -454,7 +454,7 @@ export default function ConfidenceIndicatorsPage() {
             SECTION F - Edge cases
         ══════════════════════════════════════════════════════════════ */}
         <section className="mt-24 md:mt-36">
-          <div className="mx-auto max-w-[1100px]">
+          <div className="mx-auto max-w-[1200px]">
             <header>
               <p
                 className="text-[12px] font-medium uppercase tracking-[0.08em]"
