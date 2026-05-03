@@ -1,6 +1,6 @@
 export default function AboutStrip() {
   return (
-    <section id="about" className="pt-24 pb-24">
+    <section id="about" className="mt-24 md:mt-36">
       <div className="mx-auto max-w-[1200px] px-6 md:px-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[14rem_1fr]">
 
@@ -17,7 +17,7 @@ export default function AboutStrip() {
           {/* Right: prose + contact */}
           <div className="max-w-[58ch]">
             <p
-              className="text-pretty leading-[1.65]"
+              className="mt-8 text-pretty leading-[1.65] md:mt-0"
               style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
             >
               The engineering patterns for AI agents are well-documented. The
@@ -27,7 +27,7 @@ export default function AboutStrip() {
             </p>
 
             <p
-              className="mt-5 text-pretty leading-[1.65]"
+              className="mt-8 text-pretty leading-[1.65]"
               style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
             >
               Agent Inspector names those patterns, builds them, and argues
@@ -35,7 +35,7 @@ export default function AboutStrip() {
             </p>
 
             <p
-              className="mt-5 text-pretty leading-[1.65]"
+              className="mt-8 text-pretty leading-[1.65]"
               style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
             >
               Eric Sparks is a product designer at Microsoft. This library is
@@ -43,7 +43,7 @@ export default function AboutStrip() {
               software.
             </p>
 
-            <div className="mt-6 space-y-1.5">
+            <div className="mt-8 flex flex-col gap-4">
               <p
                 style={{ fontSize: "var(--text-small)", color: "var(--text-muted)" }}
               >

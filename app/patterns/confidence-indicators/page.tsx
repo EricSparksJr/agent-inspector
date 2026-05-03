@@ -21,10 +21,6 @@ export const metadata: Metadata = {
 
 // ─── page-level constants ─────────────────────────────────────────────────────
 
-const W = "mx-auto max-w-[1040px] px-6 md:px-10"
-const GAP = "mt-24"   // 96px between major sections
-const S = "mt-8"      // 32px between elements within a section
-
 const DECISIONS = [
   {
     decision: "Categorical tier vs raw percentage",
@@ -147,6 +143,8 @@ const RELATED_RESEARCH = [
   },
 ] as const
 
+const W = "mx-auto max-w-[1040px] px-6 md:px-10"
+
 // ─── page ─────────────────────────────────────────────────────────────────────
 
 export default function ConfidenceIndicatorsPage() {
@@ -180,16 +178,16 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION B - Editorial header
         ══════════════════════════════════════════════════════════════ */}
-        <div className={`${GAP} max-w-[640px]`}>
+        <header className="mt-24 max-w-[640px] md:mt-36">
           <p
-            className="mb-5 text-[12px] font-medium uppercase tracking-[0.08em]"
+            className="text-[12px] font-medium uppercase tracking-[0.08em]"
             style={{ color: "var(--text-subtle)" }}
           >
             Pattern 01
           </p>
 
           <h1
-            className="mb-6 text-balance font-semibold leading-[1.05]"
+            className="mt-4 text-balance font-semibold leading-[1.05]"
             style={{
               fontSize: "48px",
               letterSpacing: "-2.4px",
@@ -198,54 +196,39 @@ export default function ConfidenceIndicatorsPage() {
           >
             Confidence Indicators.
           </h1>
+        </header>
 
-          <p
-            className={`${S} text-pretty`}
-            style={{
-              fontSize: "20px",
-              lineHeight: "1.5",
-              maxWidth: "64ch",
-              color: "var(--text-muted)",
-            }}
-          >
-            Agents act on probabilistic outputs, but most UIs present them as
-            certainties. Users learn to either over-trust or ignore the system
-            entirely.
-          </p>
-        </div>
+        <p
+          className="mt-8 max-w-[640px] text-pretty"
+          style={{
+            fontSize: "20px",
+            lineHeight: "1.5",
+            maxWidth: "64ch",
+            color: "var(--text-muted)",
+          }}
+        >
+          Agents act on probabilistic outputs, but most UIs present them as
+          certainties. Users learn to either over-trust or ignore the system
+          entirely.
+        </p>
 
         {/* ══════════════════════════════════════════════════════════════
             SECTION C - Live demo
         ══════════════════════════════════════════════════════════════ */}
-        <div className="mt-12">
-          {/* Live status - accent use 1 of 5 */}
-          <div className="mb-4 flex items-center gap-2">
-            <span
-              className="shrink-0 rounded-full"
-              style={{ width: 6, height: 6, backgroundColor: "var(--accent)" }}
-              aria-hidden="true"
-            />
-            <p
-              className="text-[12px] tracking-[0.04em]"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Live
-            </p>
-          </div>
-
+        <div className="mt-14 md:mt-20">
           <EnhancedConfidenceDemo />
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
             SECTION D - The thinking (2-column editorial)
         ══════════════════════════════════════════════════════════════ */}
-        <section className="py-24 lg:py-32">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_264px] lg:gap-16">
+        <section className="mt-24 md:mt-36">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_264px] lg:gap-20">
 
             {/* Left - editorial */}
             <div className="min-w-0">
               <h2
-                className="mb-4 text-balance font-semibold leading-[1.2]"
+                className="text-balance font-semibold leading-[1.2]"
                 style={{
                   fontSize: "32px",
                   letterSpacing: "-1.2px",
@@ -256,7 +239,7 @@ export default function ConfidenceIndicatorsPage() {
               </h2>
 
               <p
-                className="mb-8 text-pretty leading-[1.6]"
+                className="mt-8 text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
                   maxWidth: "64ch",
@@ -271,7 +254,7 @@ export default function ConfidenceIndicatorsPage() {
               </p>
 
               <p
-                className="mb-8 text-pretty leading-[1.6]"
+                className="mt-8 text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
                   maxWidth: "64ch",
@@ -288,7 +271,7 @@ export default function ConfidenceIndicatorsPage() {
 
               {/* Pull quote: 3px left rule uses foreground token (not accent). Internal py only. */}
               <blockquote
-                className="my-10 py-6"
+                className="mt-8 py-6"
                 style={{
                   borderLeft: "3px solid var(--text)",
                   paddingLeft: "24px",
@@ -308,7 +291,7 @@ export default function ConfidenceIndicatorsPage() {
               </blockquote>
 
               <p
-                className="mb-8 text-pretty leading-[1.6]"
+                className="mt-8 text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
                   maxWidth: "64ch",
@@ -327,7 +310,7 @@ export default function ConfidenceIndicatorsPage() {
               </p>
 
               <p
-                className="text-pretty leading-[1.6]"
+                className="mt-8 text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
                   maxWidth: "64ch",
@@ -351,7 +334,7 @@ export default function ConfidenceIndicatorsPage() {
               >
                 Related research
               </p>
-              <ul className="mt-6 space-y-6">
+              <ul className="mt-8 flex flex-col gap-8">
                 {RELATED_RESEARCH.map((s) => (
                   <li key={s.title} className="group">
                     <a
@@ -389,25 +372,24 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION E - Anatomy diagram
         ══════════════════════════════════════════════════════════════ */}
-        <section
-          className="py-24 lg:py-32"
-          aria-labelledby="anatomy-heading"
-        >
+        <section className="mt-24 md:mt-36" aria-labelledby="anatomy-heading">
+          <header>
+            <p
+              className="text-[12px] font-medium uppercase tracking-[0.08em]"
+              style={{ color: "var(--text-subtle)" }}
+            >
+              Anatomy
+            </p>
+            <h2
+              id="anatomy-heading"
+              className="mt-4 text-balance font-semibold leading-[1.2]"
+              style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
+            >
+              What each element does.
+            </h2>
+          </header>
           <p
-            className="text-[12px] font-medium uppercase tracking-[0.08em]"
-            style={{ color: "var(--text-subtle)" }}
-          >
-            Anatomy
-          </p>
-          <h2
-            id="anatomy-heading"
-            className="mt-3 text-balance font-semibold leading-[1.2]"
-            style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
-          >
-            What each element does.
-          </h2>
-          <p
-            className="mt-4 max-w-[64ch] text-pretty leading-[1.6]"
+            className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
             style={{
               fontSize: "var(--text-body)",
               color: "var(--text-muted)",
@@ -417,7 +399,7 @@ export default function ConfidenceIndicatorsPage() {
             actions form one metadata system on each assistant turn.
           </p>
 
-          <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+          <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
             <div className="lg:sticky lg:top-24 lg:self-start">
               <MessageThread
                 researchRailFooter
@@ -432,7 +414,10 @@ export default function ConfidenceIndicatorsPage() {
               />
               <ol className="relative m-0 list-none p-0">
                 {ANATOMY_ITEMS.map((item, i) => (
-                  <li key={item.num} className="relative pb-12 pl-12 last:pb-0">
+                  <li
+                    key={item.num}
+                    className={`relative ${i > 0 ? "mt-8" : ""} pl-12`}
+                  >
                     <span
                       className="absolute left-0 top-0 flex h-[20px] w-[28px] items-center justify-center bg-[var(--bg)] font-[family-name:var(--font-mono)] text-[11px] tracking-[0.08em]"
                       style={{ color: "var(--text-muted)" }}
@@ -468,22 +453,24 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION F - Edge cases
         ══════════════════════════════════════════════════════════════ */}
-        <section className="py-24 lg:py-32">
+        <section className="mt-24 md:mt-36">
           <div className="mx-auto max-w-[1100px]">
+            <header>
+              <p
+                className="text-[12px] font-medium uppercase tracking-[0.08em]"
+                style={{ color: "var(--text-subtle)" }}
+              >
+                Edge Cases
+              </p>
+              <h2
+                className="mt-4 text-balance font-semibold leading-[1.2]"
+                style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
+              >
+                What this pattern doesn&apos;t solve.
+              </h2>
+            </header>
             <p
-              className="text-[12px] font-medium uppercase tracking-[0.08em]"
-              style={{ color: "var(--text-subtle)" }}
-            >
-              Edge Cases
-            </p>
-            <h2
-              className="mt-3 text-balance font-semibold leading-[1.2]"
-              style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
-            >
-              What this pattern doesn&apos;t solve.
-            </h2>
-            <p
-              className="mt-4 max-w-[64ch] text-pretty leading-[1.6]"
+              className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
               style={{
                 fontSize: "var(--text-body)",
                 color: "var(--text-muted)",
@@ -492,7 +479,7 @@ export default function ConfidenceIndicatorsPage() {
               Four failure modes that exist outside this pattern&apos;s scope. Each
               requires its own treatment.
             </p>
-            <div className="mt-12">
+            <div className="mt-14 md:mt-20">
               <EdgeCaseCards />
             </div>
           </div>
@@ -501,21 +488,23 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION G - Implementation notes + code
         ══════════════════════════════════════════════════════════════ */}
-        <section className="py-24 lg:py-32">
+        <section className="mt-24 md:mt-36">
+          <header>
+            <p
+              className="text-[12px] font-medium uppercase tracking-[0.08em]"
+              style={{ color: "var(--text-subtle)" }}
+            >
+              Implementation
+            </p>
+            <h2
+              className="mt-4 font-semibold leading-[1.2]"
+              style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
+            >
+              The ConfidenceChip primitive.
+            </h2>
+          </header>
           <p
-            className="text-[12px] font-medium uppercase tracking-[0.08em]"
-            style={{ color: "var(--text-subtle)" }}
-          >
-            Implementation
-          </p>
-          <h2
-            className="mt-3 font-semibold leading-[1.2]"
-            style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
-          >
-            The ConfidenceChip primitive.
-          </h2>
-          <p
-            className="mt-4 max-w-[64ch] text-pretty leading-[1.6]"
+            className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
             style={{
               fontSize: "var(--text-body)",
               color: "var(--text-muted)",
@@ -528,7 +517,7 @@ export default function ConfidenceIndicatorsPage() {
             hover, alongside the reasoning, so the numeric signal is available for
             inspection without competing with the categorical headline.
           </p>
-          <div className="mt-10">
+          <div className="mt-8">
             <CodeBlock />
           </div>
         </section>
@@ -536,21 +525,23 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION H - Trade-offs (table)
         ══════════════════════════════════════════════════════════════ */}
-        <section className="py-24 lg:py-32">
+        <section className="mt-24 md:mt-36">
+          <header>
+            <p
+              className="text-[12px] font-medium uppercase tracking-[0.08em]"
+              style={{ color: "var(--text-subtle)" }}
+            >
+              TRADE-OFFS
+            </p>
+            <h2
+              className="mt-4 font-semibold leading-[1.2]"
+              style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
+            >
+              Why this, and not that.
+            </h2>
+          </header>
           <p
-            className="text-[12px] font-medium uppercase tracking-[0.08em]"
-            style={{ color: "var(--text-subtle)" }}
-          >
-            TRADE-OFFS
-          </p>
-          <h2
-            className="mt-3 font-semibold leading-[1.2]"
-            style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
-          >
-            Why this, and not that.
-          </h2>
-          <p
-            className="mt-4 max-w-[64ch] text-pretty leading-[1.6]"
+            className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
             style={{
               fontSize: "var(--text-body)",
               color: "var(--text-muted)",
@@ -560,7 +551,7 @@ export default function ConfidenceIndicatorsPage() {
           </p>
 
           <div
-            className="mt-10 overflow-hidden rounded-xl"
+            className="mt-14 md:mt-20 overflow-hidden rounded-xl"
             style={{
               border: "1px solid var(--card-border)",
               boxShadow: "var(--card-shadow)",
@@ -625,7 +616,7 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION I - Footer nav (Linear-style prev/next)
         ══════════════════════════════════════════════════════════════ */}
-        <div className="mt-24 pb-24">
+        <div className="mt-24 md:mt-36">
           <div
             className="flex items-start justify-between pt-8"
             style={{ borderTop: "1px solid var(--border)" }}
@@ -669,7 +660,9 @@ export default function ConfidenceIndicatorsPage() {
 
       </div>
 
-      <Footer />
+      <div className="mt-24 md:mt-36">
+        <Footer />
+      </div>
     </div>
   )
 }

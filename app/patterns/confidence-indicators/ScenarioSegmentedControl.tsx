@@ -51,7 +51,7 @@ export default function ScenarioSegmentedControl({
     <div
       role="tablist"
       aria-label="Demo scenario"
-      className="mb-8 inline-flex w-full max-w-full items-center gap-0 rounded-full p-1 md:w-auto"
+      className="inline-flex w-full max-w-full items-center gap-0 rounded-full p-1 md:w-auto"
       style={{ backgroundColor: "var(--bg-subtle)" }}
     >
       {SCENARIO_ORDER.map((key, idx) => {

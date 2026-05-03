@@ -39,33 +39,34 @@ function PillInProgress() {
 
 export default function PatternGrid() {
   return (
-    <section id="patterns" className="pb-40 pt-24">
+    <section id="patterns" className="mt-24 md:mt-36">
       <div className="mx-auto max-w-[1200px] px-6 md:px-10">
 
-        <div className="mb-10">
+        <header>
           <p
-            className="mb-4 text-[12px] font-medium uppercase tracking-[0.08em]"
+            className="text-[12px] font-medium uppercase tracking-[0.08em]"
             style={{ color: "var(--text-subtle)" }}
           >
             Library
           </p>
           <h2
-            className="mb-4 text-balance font-semibold leading-[1.15] tracking-[-0.01em]"
+            className="mt-4 text-balance font-semibold leading-[1.15] tracking-[-0.01em]"
             style={{ fontSize: "var(--text-h2)", color: "var(--text)" }}
           >
             Six patterns
           </h2>
-          <p
-            className="max-w-lg text-pretty leading-[1.6]"
-            style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
-          >
-            Each pattern includes a working demo, the reasoning behind it,
-            and what it intentionally does not do.
-          </p>
-        </div>
+        </header>
+
+        <p
+          className="mt-8 max-w-lg text-pretty leading-[1.6]"
+          style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
+        >
+          Each pattern includes a working demo, the reasoning behind it,
+          and what it intentionally does not do.
+        </p>
 
         <div
-          className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 [grid-auto-rows:1fr]"
+          className="mt-14 md:mt-20 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 [grid-auto-rows:1fr]"
         >
           {patterns.map((pattern, index) => {
             const isLive = pattern.status === "live"

@@ -19,7 +19,9 @@ export default function Page() {
       <Hero />
       <PatternGrid />
       <AboutStrip />
-      <Footer />
+      <div className="mt-24 md:mt-36">
+        <Footer />
+      </div>
     </motion.div>
   )
 }

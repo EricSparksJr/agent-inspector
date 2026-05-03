@@ -35,7 +35,7 @@ export default function Hero() {
       />
 
       <div className="mx-auto max-w-[1200px] px-6 md:px-10">
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[540px_1fr] xl:gap-16">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[540px_1fr] lg:gap-20">
 
           {/* ── Left column ── */}
           <motion.div
@@ -45,21 +45,21 @@ export default function Hero() {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <h1
-              className="mt-0 pt-0 mb-6 text-balance font-semibold leading-[0.95] tracking-[-0.025em] [text-box-edge:cap_alphabetic] [text-box-trim:trim-start]"
+              className="mt-0 pt-0 text-balance font-semibold leading-[0.95] tracking-[-0.025em] [text-box-edge:cap_alphabetic] [text-box-trim:trim-start]"
               style={{ fontSize: "var(--text-display)", color: "var(--text)" }}
             >
               Designing trust into agentic systems.
             </h1>
 
             <p
-              className="mb-10 max-w-[480px] text-pretty leading-[1.55]"
+              className="mt-8 max-w-[480px] text-pretty leading-[1.55]"
               style={{ fontSize: "var(--text-body-lg)", color: "var(--text-muted)" }}
             >
               Six interaction patterns for AI agents. Written and built by Eric
               Sparks, a product designer at Microsoft.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button
                 className="h-10 px-5 text-sm font-medium"
                 onClick={scrollToPatterns}
@@ -85,18 +85,22 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
-            <p
-              className="mb-4 text-[12px] font-medium uppercase tracking-[0.08em]"
-              style={{ color: "var(--text-subtle)" }}
-            >
-              Demo
-            </p>
-            <MessageThread
-              messages={DEMO_MESSAGES_SINGLE}
-              variant="compact"
-              showWithWithoutToggle
-              researchRailFooter
-            />
+            <header>
+              <p
+                className="text-[12px] font-medium uppercase tracking-[0.08em]"
+                style={{ color: "var(--text-subtle)" }}
+              >
+                Demo
+              </p>
+              <div className="mt-4">
+                <MessageThread
+                  messages={DEMO_MESSAGES_SINGLE}
+                  variant="compact"
+                  showWithWithoutToggle
+                  researchRailFooter
+                />
+              </div>
+            </header>
           </motion.div>
 
         </div>

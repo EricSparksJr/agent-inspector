@@ -2,7 +2,11 @@
 
 import { useState } from "react"
 import MessageThread from "@/components/patterns/MessageThread"
-import { type Message, DEMO_MESSAGES, DEMO_MESSAGES_SINGLE } from "@/components/patterns/messageThreadData"
+import {
+  type Message,
+  DEMO_MESSAGES,
+  DEMO_MESSAGES_SINGLE,
+} from "@/components/patterns/messageThreadData"
 import ScenarioSegmentedControl, { type ScenarioKey } from "./ScenarioSegmentedControl"
 
 const UNCERTAIN_MESSAGES: Message[] = [
@@ -22,8 +26,8 @@ const UNCERTAIN_MESSAGES: Message[] = [
     ],
     confidence: { tier: "low", percent: 34 },
     sources: [
-      { id: "docs-unc",  title: "Docs: Policy index (unverified)", type: "doc",   verified: false },
-      { id: "slack-unc", title: "Slack: HR thread",            type: "slack", verified: false },
+      { id: "docs-unc", title: "Docs: Policy index (unverified)", type: "doc", verified: false },
+      { id: "slack-unc", title: "Slack: HR thread", type: "slack", verified: false },
     ],
   },
 ]
@@ -38,15 +42,34 @@ export default function EnhancedConfidenceDemo() {
   const [active, setActive] = useState<ScenarioKey>("confident")
 
   return (
-    <div>
-      <ScenarioSegmentedControl active={active} onChange={setActive} />
+    <>
+      <header>
+        <div className="flex items-center gap-2">
+          <span
+            className="shrink-0 rounded-full"
+            style={{ width: 6, height: 6, backgroundColor: "var(--accent)" }}
+            aria-hidden="true"
+          />
+          <p
+            className="text-[12px] tracking-[0.04em]"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Live
+          </p>
+        </div>
+        <div className="mt-4">
+          <ScenarioSegmentedControl active={active} onChange={setActive} />
+        </div>
+      </header>
 
-      <MessageThread
-        researchRailFooter
-        showWithWithoutToggle
-        patternToggleInsideCard
-        messages={STATES[active].messages}
-      />
-    </div>
+      <div className="mt-8">
+        <MessageThread
+          researchRailFooter
+          showWithWithoutToggle
+          patternToggleInsideCard
+          messages={STATES[active].messages}
+        />
+      </div>
+    </>
   )
 }
