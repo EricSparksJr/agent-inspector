@@ -614,11 +614,11 @@ export default function ConfidenceIndicatorsPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════
-            SECTION I - Footer nav (Linear-style prev/next)
+            SECTION I - Previous nav (single column)
         ══════════════════════════════════════════════════════════════ */}
         <div className="mt-24 md:mt-36">
           <div
-            className="flex items-start justify-between pt-8"
+            className="flex items-start justify-start pt-8"
             style={{ borderTop: "1px solid var(--border)" }}
           >
             {/* Previous - primary link to library */}
@@ -637,25 +637,6 @@ export default function ConfidenceIndicatorsPage() {
                 style={{ color: "var(--text)" }}
               >
                 First pattern in the set
-              </span>
-            </Link>
-
-            {/* Next - muted, no hover emphasis */}
-            <Link
-              href="#"
-              className="flex flex-col items-end gap-1"
-            >
-              <span
-                className="text-[11px] font-medium uppercase tracking-[0.06em]"
-                style={{ color: "var(--text-subtle)" }}
-              >
-                Next
-              </span>
-              <span
-                className="text-[15px] font-medium"
-                style={{ color: "var(--text-subtle)" }}
-              >
-                02 / Thought Transparency
               </span>
             </Link>
           </div>
