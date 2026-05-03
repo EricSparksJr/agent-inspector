@@ -43,24 +43,7 @@ export default function EnhancedConfidenceDemo() {
 
   return (
     <>
-      <header>
-        <div className="flex items-center gap-2">
-          <span
-            className="shrink-0 rounded-full"
-            style={{ width: 6, height: 6, backgroundColor: "var(--accent)" }}
-            aria-hidden="true"
-          />
-          <p
-            className="text-[12px] tracking-[0.04em]"
-            style={{ color: "var(--text-muted)" }}
-          >
-            Live
-          </p>
-        </div>
-        <div className="mt-4">
-          <ScenarioSegmentedControl active={active} onChange={setActive} />
-        </div>
-      </header>
+      <ScenarioSegmentedControl active={active} onChange={setActive} />
 
       <div className="mt-8">
         <MessageThread

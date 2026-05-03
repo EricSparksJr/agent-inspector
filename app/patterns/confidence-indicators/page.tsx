@@ -213,9 +213,15 @@ export default function ConfidenceIndicatorsPage() {
         </p>
 
         {/* ══════════════════════════════════════════════════════════════
-            SECTION C - Live demo
+            SECTION C - Demo
         ══════════════════════════════════════════════════════════════ */}
-        <div className="mt-14 md:mt-20">
+        <p
+          className="mt-14 max-w-[640px] text-[12px] font-medium uppercase tracking-[0.08em] md:mt-20"
+          style={{ color: "var(--text-subtle)" }}
+        >
+          Demo
+        </p>
+        <div className="mt-4">
           <EnhancedConfidenceDemo />
         </div>
 
