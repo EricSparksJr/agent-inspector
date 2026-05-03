@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { patterns } from "@/lib/patterns"
+import { cn } from "@/lib/utils"
 
 const CARD_BASE =
   "relative flex h-full min-h-0 flex-col rounded-[12px] p-6 transition-colors duration-200"
@@ -80,7 +81,10 @@ export default function PatternGrid() {
                 viewport={{ once: true, margin: "-40px" }}
               >
                 {isLive ? (
-                  <Link href={pattern.href!} className="block h-full min-h-0">
+                  <Link
+                    href={pattern.href!}
+                    className="group/livecard block h-full min-h-0 rounded-[12px] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)]"
+                  >
                     <LiveCard pattern={pattern} />
                   </Link>
                 ) : (
@@ -99,12 +103,15 @@ export default function PatternGrid() {
 function LiveCard({ pattern }: { pattern: (typeof patterns)[number] }) {
   return (
     <div
-      className={CARD_BASE}
-      style={{
-        backgroundColor: "var(--card-bg)",
-        border: "1px solid var(--border)",
-        boxShadow: "var(--card-shadow)",
-      }}
+      className={cn(
+        "relative flex h-full min-h-0 flex-col rounded-[12px] p-6",
+        "border border-solid border-[color:var(--border)] bg-[var(--card-bg)] [box-shadow:var(--card-shadow)]",
+        "transition-[transform,box-shadow,border-color] duration-200",
+        "[transition-timing-function:cubic-bezier(0.16,1,0.3,1)]",
+        "motion-safe:group-hover/livecard:-translate-y-0.5",
+        "group-hover/livecard:border-[color:var(--border-strong)]",
+        "group-hover/livecard:shadow-[0_2px_4px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.08)]",
+      )}
     >
       <div className="mb-3 flex items-start justify-between gap-3">
         <h3
