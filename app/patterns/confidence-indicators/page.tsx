@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import type { ReactNode } from "react"
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import Footer from "@/components/sections/Footer"
 import EnhancedConfidenceDemo from "./EnhancedConfidenceDemo"
 import MessageThread from "@/components/patterns/MessageThread"
@@ -153,23 +154,25 @@ export default function ConfidenceIndicatorsPage() {
       <div className={W}>
 
         {/* ══════════════════════════════════════════════════════════════
-            SECTION A - Breadcrumb + meta
+            SECTION A - Back link + meta
         ══════════════════════════════════════════════════════════════ */}
         <div className="pt-32">
           <div
             className="flex items-center justify-between text-[13px]"
             style={{ color: "var(--text-muted)" }}
           >
-            <nav className="flex items-center gap-2" aria-label="Breadcrumb">
+            <nav aria-label="Back">
               <Link
-                href="/"
-                className="transition-colors duration-[180ms] hover:opacity-70"
-                style={{ color: "var(--text-muted)" }}
+                href="/#patterns"
+                className="inline-flex items-baseline gap-2 text-[color:var(--text-muted)] transition-colors duration-[180ms] hover:text-[color:var(--text)]"
               >
-                Patterns
+                <ArrowLeft
+                  className="size-4 shrink-0 translate-y-px"
+                  strokeWidth={1.75}
+                  aria-hidden
+                />
+                <span>Back to patterns</span>
               </Link>
-              <span style={{ color: "var(--border-strong)" }}>/</span>
-              <span style={{ color: "var(--text)" }}>Confidence Indicators</span>
             </nav>
             <span className="hidden sm:block">Updated Apr 2026 · 8 min read</span>
           </div>
@@ -620,16 +623,15 @@ export default function ConfidenceIndicatorsPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════
-            SECTION I - Previous nav (single column)
+            SECTION I - Return to library
         ══════════════════════════════════════════════════════════════ */}
         <div className="mt-24 md:mt-36">
           <div
             className="flex items-start justify-start pt-8"
             style={{ borderTop: "1px solid var(--border)" }}
           >
-            {/* Previous - primary link to library */}
             <Link
-              href="/"
+              href="/#patterns"
               className="flex flex-col gap-1 transition-opacity duration-[180ms] hover:opacity-70"
             >
               <span
@@ -642,7 +644,7 @@ export default function ConfidenceIndicatorsPage() {
                 className="text-[15px] font-medium"
                 style={{ color: "var(--text)" }}
               >
-                First pattern in the set
+                Return to pattern library
               </span>
             </Link>
           </div>
