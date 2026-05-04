@@ -33,7 +33,7 @@ function PillInProgress() {
         color: "var(--text-faint)",
       }}
     >
-      In progress
+      In writing
     </span>
   )
 }
@@ -62,8 +62,7 @@ export default function PatternGrid() {
           className="mt-8 max-w-lg text-pretty leading-[1.6]"
           style={{ fontSize: "var(--text-body)", color: "var(--text-muted)" }}
         >
-          Each pattern includes a working demo, the reasoning behind it,
-          and what it intentionally does not do.
+          Chapter one is live. The remaining chapters are currently in writing.
         </p>
 
         <div
