@@ -70,7 +70,7 @@ export default function ScenarioSegmentedControl({
             onClick={() => onChange(key)}
             onKeyDown={(e) => onButtonKeyDown(e, idx)}
             className={cn(
-              "relative z-10 flex-1 basis-0 rounded-full px-4 py-1.5 text-center text-[14px] font-medium outline-none transition-colors duration-200 ease-out md:flex-none md:basis-auto",
+              "relative z-10 flex-1 basis-0 min-w-0 rounded-full px-3 py-1.5 text-center text-[13px] md:text-[14px] font-medium outline-none transition-colors duration-200 ease-out md:flex-none md:basis-auto md:min-w-fit md:px-4",
               "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:[outline-color:var(--accent)]",
               !selected &&
                 "text-[var(--text-muted)] hover:bg-black/5 hover:text-[var(--text)]",
@@ -89,7 +89,7 @@ export default function ScenarioSegmentedControl({
                 }}
               />
             )}
-            <span className="relative">{LABELS[key]}</span>
+            <span className="relative truncate">{LABELS[key]}</span>
           </button>
         )
       })}

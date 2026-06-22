@@ -150,7 +150,7 @@ const W = "mx-auto max-w-[1200px] px-6 md:px-10"
 
 export default function ConfidenceIndicatorsPage() {
   return (
-    <div className="flex min-h-full flex-col bg-background page-enter">
+    <div className="flex min-h-full flex-col bg-background page-enter overflow-x-clip">
       <div className={W}>
 
         {/* ══════════════════════════════════════════════════════════════
@@ -190,12 +190,8 @@ export default function ConfidenceIndicatorsPage() {
           </p>
 
           <h1
-            className="mt-4 text-balance font-semibold leading-[1.05]"
-            style={{
-              fontSize: "48px",
-              letterSpacing: "-2.4px",
-              color: "var(--text)",
-            }}
+            className="mt-4 text-balance font-semibold leading-[1.05] text-[36px] md:text-[48px] tracking-[-1.2px] md:tracking-[-2.4px]"
+            style={{ color: "var(--text)" }}
           >
             Confidence Indicators.
           </h1>
@@ -206,7 +202,6 @@ export default function ConfidenceIndicatorsPage() {
           style={{
             fontSize: "20px",
             lineHeight: "1.5",
-            maxWidth: "64ch",
             color: "var(--text-muted)",
           }}
         >
@@ -248,10 +243,9 @@ export default function ConfidenceIndicatorsPage() {
               </h2>
 
               <p
-                className="mt-8 text-pretty leading-[1.6]"
+                className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
-                  maxWidth: "64ch",
                   color: "var(--text-muted)",
                 }}
               >
@@ -263,10 +257,9 @@ export default function ConfidenceIndicatorsPage() {
               </p>
 
               <p
-                className="mt-8 text-pretty leading-[1.6]"
+                className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
-                  maxWidth: "64ch",
                   color: "var(--text-muted)",
                 }}
               >
@@ -300,10 +293,9 @@ export default function ConfidenceIndicatorsPage() {
               </blockquote>
 
               <p
-                className="mt-8 text-pretty leading-[1.6]"
+                className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
-                  maxWidth: "64ch",
                   color: "var(--text-muted)",
                 }}
               >
@@ -319,10 +311,9 @@ export default function ConfidenceIndicatorsPage() {
               </p>
 
               <p
-                className="mt-8 text-pretty leading-[1.6]"
+                className="mt-8 max-w-[64ch] text-pretty leading-[1.6]"
                 style={{
                   fontSize: "var(--text-body)",
-                  maxWidth: "64ch",
                   color: "var(--text-muted)",
                 }}
               >
