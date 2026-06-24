@@ -5,6 +5,7 @@ import Hero from "@/components/sections/Hero"
 import PatternGrid from "@/components/sections/PatternGrid"
 import AboutStrip from "@/components/sections/AboutStrip"
 import Footer from "@/components/sections/Footer"
+import ScrollHashOnMount from "@/components/ScrollHashOnMount"
 
 export default function Page() {
   const prefersReducedMotion = useReducedMotion()
@@ -16,6 +17,7 @@ export default function Page() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: "easeOut" }}
     >
+      <ScrollHashOnMount />
       <Hero />
       <PatternGrid />
       <AboutStrip />

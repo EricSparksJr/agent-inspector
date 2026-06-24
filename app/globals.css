@@ -113,6 +113,7 @@
   --text-code:     0.8125rem;   /* 13px. Geist Mono only */
 
   /* ── Nav helper ──────────────────────────────────────────────── */
+  --nav-height:          56px;
   --nav-bg-scrolled:     color-mix(in srgb, var(--page-bg) 92%, transparent);
   --nav-border-scrolled: var(--border);
 
@@ -315,5 +316,19 @@ button:not(:disabled),
   .followup-composer-caret {
     animation: none !important;
     opacity: 1 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Scroll system (fixed nav + anchor targets)
+═══════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-padding-top: calc(var(--nav-height) + 24px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }

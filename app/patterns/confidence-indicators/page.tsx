@@ -8,6 +8,7 @@ import MessageThread from "@/components/patterns/MessageThread"
 import { DEMO_MESSAGES } from "@/components/patterns/messageThreadData"
 import CodeBlock from "./CodeBlock"
 import EdgeCaseCards from "./EdgeCaseCards"
+import ScrollHashOnMount from "@/components/ScrollHashOnMount"
 
 export const viewport: Viewport = {
   colorScheme: "light",
@@ -151,12 +152,13 @@ const W = "mx-auto max-w-[1200px] px-6 md:px-10"
 export default function ConfidenceIndicatorsPage() {
   return (
     <div className="flex min-h-full flex-col bg-background page-enter overflow-x-clip">
+      <ScrollHashOnMount />
       <div className={W}>
 
         {/* ══════════════════════════════════════════════════════════════
             SECTION A - Back link + meta
         ══════════════════════════════════════════════════════════════ */}
-        <div className="pt-32">
+        <div className="pt-24">
           <div
             className="flex items-center justify-between text-[13px]"
             style={{ color: "var(--text-muted)" }}
@@ -181,7 +183,7 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION B - Editorial header
         ══════════════════════════════════════════════════════════════ */}
-        <header className="mt-24 max-w-[640px] md:mt-36">
+        <header className="mt-12 max-w-[640px] md:mt-16">
           <p
             className="text-[12px] font-medium uppercase tracking-[0.08em]"
             style={{ color: "var(--text-subtle)" }}
@@ -213,14 +215,16 @@ export default function ConfidenceIndicatorsPage() {
         {/* ══════════════════════════════════════════════════════════════
             SECTION C - Demo
         ══════════════════════════════════════════════════════════════ */}
-        <p
-          className="mt-14 max-w-[640px] text-[12px] font-medium uppercase tracking-[0.08em] md:mt-20"
-          style={{ color: "var(--text-subtle)" }}
-        >
-          Demo
-        </p>
-        <div className="mt-4">
-          <EnhancedConfidenceDemo />
+        <div id="demo" className="mt-10 md:mt-12">
+          <p
+            className="max-w-[640px] text-[12px] font-medium uppercase tracking-[0.08em]"
+            style={{ color: "var(--text-subtle)" }}
+          >
+            Demo
+          </p>
+          <div className="mt-4">
+            <EnhancedConfidenceDemo />
+          </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
